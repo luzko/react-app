@@ -1,6 +1,6 @@
 import React from "react";
-import Search from "./component/search/Search";
-import ItemList from "./component/ItemList";
+import Search from "./search/Search";
+import ItemList from "./ItemList";
 
 function App() {
   const genres = [
