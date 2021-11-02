@@ -4,10 +4,11 @@
   "description": "react-app description",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
-    "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production",
-    "start": "webpack-dev-server --open --mode=development",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:dev": "cross-env NODE_ENV=development node_modules/.bin/webpack --mode=development",
+    "build:prod": "cross-env NODE_ENV=production node_modules/.bin/webpack --mode=production",
+    "start:dev": "cross-env NODE_ENV=development node_modules/.bin/webpack-dev-server --open --mode=development",
+    "start:prod": "cross-env NODE_ENV=production node_modules/.bin/webpack-dev-server --open --mode=production",
     "watch": "webpack --watch"
   },
   "repository": {
