@@ -1,0 +1,30 @@
+.headerText {
+  font-size: 26px;
+  color: #ffffff;
+  margin-left: 10vw;
+}
+
+.search {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+.searchInput {
+  width: 70%;
+  height: 44px;
+  border-radius: 6px;
+  font-size: 18px;
+  background-color: darkgray;
+}
+
+.searchButton {
+  width: 25%;
+  border-radius: 6px;
+  font-size: 18px;
+  color: #ffffff;
+  background-color: #f65261;
+}

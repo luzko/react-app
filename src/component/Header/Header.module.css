@@ -1,0 +1,25 @@
+.header {
+  background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1)),
+  url('https://miro.medium.com/max/1400/1*5lyavS59mazOFnb55Z6znQ.png');
+  padding: 10px;
+}
+
+.logoAndButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.logo {
+  width: 110px;
+}
+
+.addButton {
+  width: 170px;
+  height: 40px;
+  border-radius: 6px;
+  font-size: 18px;
+  color: #f65261;
+  background-color: #232323;
+}
