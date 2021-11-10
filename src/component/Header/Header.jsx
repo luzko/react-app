@@ -1,12 +1,13 @@
 import React from 'react';
 import style from './Header.module.css';
 import Search from "../Search/Search";
+import logo from '../../../public/logo.svg';
 
-const Header = ({logoUrl}) => {
+const Header = () => {
   return (
       <header className={style.header}>
         <div className={style.logoAndButton}>
-          <img src={logoUrl} alt="logo" className={style.logo}/>
+          <img src={logo} alt="logo" className={style.logo}/>
           <button className={style.addButton}>+ ADD MOVIE</button>
         </div>
         <Search/>

@@ -1,10 +1,11 @@
 import React from 'react';
 import style from './Footer.module.css';
+import logo from '../../../public/logo.svg';
 
-const Footer = ({logoUrl}) => {
+const Footer = () => {
   return (
       <footer className={style.footer}>
-        <img src={logoUrl} alt="logo" className={style.logo}/>
+        <img src={logo} alt="logo" className={style.logo}/>
       </footer>
   );
 };

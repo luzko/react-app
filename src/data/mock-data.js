@@ -59,10 +59,6 @@ const mockMovies = {
   ]
 }
 
-const mockLogo = {
-  'logoUrl': 'https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg'
-}
-
 const mockGenres = [
   {
     id: 1,
@@ -99,4 +95,4 @@ const mockOptions = [
   }
 ];
 
-export {mockMovies, mockLogo, mockGenres, mockOptions};
+export {mockMovies, mockGenres, mockOptions};
