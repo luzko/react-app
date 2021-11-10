@@ -20,7 +20,6 @@ MovieCard.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    vote: PropTypes.number.isRequired,
     year: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
     genres: PropTypes.arrayOf(PropTypes.string.isRequired)
