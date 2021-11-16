@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './GenreList.module.css';
-import Genre from "../Genre/Genre";
+import Genre from "../Genre";
 
 const GenreList = ({genres}) => {
   return (

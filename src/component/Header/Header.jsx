@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './Header.module.css';
-import Search from "../Search/Search";
+import Search from "../Search";
 import logo from '../../../public/logo.svg';
 
 const Header = () => {
