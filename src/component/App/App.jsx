@@ -1,10 +1,6 @@
 import React from "react";
-import {
-  mockCount,
-  mockGenres,
-  mockMovies,
-  mockOptions
-} from '../../data/mock-data';
+import {mockCount, mockMovies} from '../../data/mock-data';
+import {genres, sortOptions} from '../../data/data';
 import Header from "../Header";
 import Main from "../Main";
 import Footer from "../Footer";
@@ -16,8 +12,8 @@ function App() {
         <Header/>
         <Main
             movies={mockMovies}
-            genres={mockGenres}
-            options={mockOptions}
+            genres={genres}
+            options={sortOptions}
             count={mockCount}
         />
         <Footer/>

@@ -57,42 +57,6 @@ const mockMovies = [
   }
 ]
 
-const mockGenres = [
-  {
-    id: 1,
-    title: 'fantasy'
-  },
-  {
-    id: 2,
-    title: 'drama'
-  },
-  {
-    id: 3,
-    title: 'detective'
-  },
-  {
-    id: 4,
-    title: 'comedy'
-  },
-  {
-    id: 5,
-    title: 'thriller'
-  }
-];
-
-const mockOptions = [
-  {
-    id: 1,
-    label: 'Release Date',
-    value: 'year'
-  },
-  {
-    id: 2,
-    label: 'Name',
-    value: 'title'
-  }
-];
-
 const mockCount = 8;
 
-export {mockMovies, mockGenres, mockOptions, mockCount};
+export {mockMovies, mockCount};
