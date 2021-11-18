@@ -16,7 +16,7 @@ class MovieModal extends React.Component {
           {fields.map((field) => (field.type === 'select' ? (
               <div className={style.field}>
                 <label>{field.label}</label>
-                <select multiple size={1} className={style.select} >
+                <select multiple size={1} className={style.select}>
                   {genreOptions.map((option) => (
                       <option key={option.id} value={option.value}>
                         {option.label.toUpperCase()}
@@ -28,15 +28,24 @@ class MovieModal extends React.Component {
               <div className={style.field}>
                 <label>{field.label}</label>
                 {field.type === 'textarea' ? (
-                    <textarea value={isEdit ? movie[field.key] : ''}/>
+                    <textarea
+                        value={isEdit && movie ? movie[field.key] : ''}
+                    />
                 ) : (
-                    <input type={field.type} value={isEdit ? movie[field.key] : ''}/>
+                    <input
+                        type={field.type}
+                        value={isEdit && movie ? movie[field.key] : ''}
+                    />
                 )}
               </div>
           )))}
           <div className={style.buttons}>
-            <button>RESET</button>
-            <button>{isEdit ? 'SAVE' : 'SUBMIT'}</button>
+            <button className={style.button}>
+              RESET
+            </button>
+            <button className={style.button}>
+              {isEdit ? 'SAVE' : 'SUBMIT'}
+            </button>
           </div>
         </Modal>
     );

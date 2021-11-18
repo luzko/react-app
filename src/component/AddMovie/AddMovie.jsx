@@ -5,7 +5,7 @@ import MovieModal from '../MovieModal/MovieModal';
 class AddMovie extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {showModal: true}
+    this.state = {showModal: false}
   }
 
   closeModal = () => {

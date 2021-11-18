@@ -18,12 +18,13 @@ const genres = [
 ];
 
 const fields = [
-  {id: 1, label: 'Title', type: 'text'},
-  {id: 2, label: 'Release Date', type: 'date'},
-  {id: 3, label: 'Movie Url', type: 'text'},
-  {id: 4, label: 'Genre', type: 'select'},
-  {id: 5, label: 'Runtime', type: 'text'},
-  {id: 6, label: 'Overview', type: 'textarea'}
+  {id: 1, label: 'Title', type: 'text', key: 'title'},
+  {id: 2, label: 'Release Date', type: 'date', key: 'release'},
+  {id: 3, label: 'Movie Url', type: 'text', key: 'url'},
+  {id: 4, label: 'Rating', type: 'text', key: 'rating'},
+  {id: 5, label: 'Genre', type: 'select', key: 'genre'},
+  {id: 6, label: 'Runtime', type: 'text', key: 'runtime'},
+  {id: 7, label: 'Overview', type: 'textarea', key: 'overview'}
 ];
 
 const sortOptions = [
@@ -38,7 +39,6 @@ const sortOptions = [
     value: 'title'
   }
 ];
-
 
 const genreOptions = genres.map((genre) => ({
   value: genre.title,
