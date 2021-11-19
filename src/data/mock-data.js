@@ -78,6 +78,4 @@ const mockMovies = [
   }
 ]
 
-const mockCount = 8;
-
-export {mockMovies, mockCount};
+export {mockMovies};

@@ -1,5 +1,5 @@
 import React from "react";
-import {mockCount, mockMovies} from '../../data/mock-data';
+import {mockMovies} from '../../data/mock-data';
 import {genres, sortOptions} from '../../data/data';
 import Header from "../Header";
 import Main from "../Main";
@@ -14,7 +14,6 @@ function App() {
             movies={mockMovies}
             genres={genres}
             options={sortOptions}
-            count={mockCount}
         />
         <Footer/>
       </ErrorBoundary>

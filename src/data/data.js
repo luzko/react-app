@@ -1,20 +1,8 @@
 const genres = [
-  {
-    id: 1,
-    title: 'documentery'
-  },
-  {
-    id: 2,
-    title: 'comedy'
-  },
-  {
-    id: 3,
-    title: 'horror'
-  },
-  {
-    id: 4,
-    title: 'crime'
-  }
+  {id: 1, title: 'documentery'},
+  {id: 2, title: 'comedy'},
+  {id: 3, title: 'horror'},
+  {id: 4, title: 'crime'}
 ];
 
 const fields = [
@@ -28,16 +16,8 @@ const fields = [
 ];
 
 const sortOptions = [
-  {
-    id: 1,
-    label: 'Release Date',
-    value: 'year'
-  },
-  {
-    id: 2,
-    label: 'Name',
-    value: 'title'
-  }
+  {id: 1, label: 'RELEASE DATE', value: 'date'},
+  {id: 2, label: 'NAME', value: 'name'}
 ];
 
 const genreOptions = genres.map((genre) => ({
