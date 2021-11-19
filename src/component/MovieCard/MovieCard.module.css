@@ -7,11 +7,10 @@
   margin: 40px;
 }
 
-.imgContainer {
+.container {
   position: relative;
   height: 400px;
 }
-
 
 .image {
   top: 0;
@@ -33,13 +32,13 @@
   color: gray;
 }
 
-.optionsContainer {
+.options {
   top: 0;
   right: 0;
   position: absolute;
 }
 
-.btnOptions {
+.button {
   top: 0;
   right: 0;
   position: absolute;

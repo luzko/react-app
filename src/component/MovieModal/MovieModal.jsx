@@ -4,7 +4,6 @@ import Modal from '../Modal';
 import {fields, genreOptions} from '../../data/data';
 
 class MovieModal extends React.Component {
-
   render() {
     const {show, action, isEdit, movie} = this.props;
 

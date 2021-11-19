@@ -3,9 +3,6 @@ import style from './MovieList.module.css';
 import MovieCard from "../MovieCard";
 import DeleteMovie from "../DeleteMovie";
 import MovieModal from "../MovieModal";
-import {mockMovies} from '../../data/mock-data';
-
-const getMovieById = (id) => mockMovies.find((movie) => movie.id === id);
 
 class MovieList extends React.Component {
   constructor(props) {
@@ -13,7 +10,7 @@ class MovieList extends React.Component {
     this.state = {
       showEditForm: false,
       showDeleteForm: false,
-      selectedMovieId: null,
+      selectedMovieId: null
     };
   }
 
@@ -29,25 +26,21 @@ class MovieList extends React.Component {
     }
   }
 
-  deleteFormAction = (action, movieId) => {
-    console.log(1212121212)
-    console.log(action)
+  deleteAction = (action, movieId) => {
     switch (action) {
       case 'confirm':
-        alert(`Movie ${movieId} to be deleted!`);
         this.setState({showDeleteForm: false, selectedMovieId: null});
         break;
       case 'close':
         this.setState({showDeleteForm: false, selectedMovieId: null});
         break;
-      default:
-        throw new Error(`Unknown action from Delete From: ${action}`);
     }
   }
 
-  editFormAction = (action, movieId) => {
-    this.setState({showEditForm: false, selectedMovieId: null});
-  }
+  editAction = () => this.setState(
+      {showEditForm: false, selectedMovieId: null});
+
+  getMovieById = (id) => this.props.movies.find((movie) => movie.id === id);
 
   render() {
     return (
@@ -63,14 +56,14 @@ class MovieList extends React.Component {
           </div>
           <DeleteMovie
               show={this.state.showDeleteForm}
-              action={this.deleteFormAction}
+              action={this.deleteAction}
               movieId={this.state.selectedMovieId}
           />
           <MovieModal
               show={this.state.showEditForm}
-              action={this.editFormAction}
+              action={this.editAction}
               isEdit
-              movie={getMovieById(this.state.selectedMovieId)}
+              movie={this.getMovieById(this.state.selectedMovieId)}
           />
         </>
     );
