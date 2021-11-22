@@ -36,7 +36,6 @@ class App extends React.Component {
   }
 
   updateMovie(movie) {
-    console.log(movie)
     let movies = this.state.movieList;
     const movieIndex = movies.findIndex((x) => x.id === movie.id);
     movies[movieIndex] = movie;
