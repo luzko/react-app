@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import style from './MovieModal.module.css';
 import Modal from '../Modal';
+import SelectGenre from '../SelectGenre';
 
 const MovieModal = (props) => {
   const isEdit = props.movie ? true : false
@@ -8,7 +9,7 @@ const MovieModal = (props) => {
   const [release, setRelease] = useState(isEdit ? props.movie.release : '')
   const [poster, setPoster] = useState(isEdit ? props.movie.poster : '')
   const [rating, setRating] = useState(isEdit ? props.movie.rating : '')
-  const [genre, setGenre] = useState(isEdit ? props.movie.genre : '')
+  const [genre, setGenre] = useState(isEdit ? props.movie.genre : [])
   const [runtime, setRuntime] = useState(isEdit ? props.movie.runtime : '')
   const [overview, setOverview] = useState(isEdit ? props.movie.overview : '')
 
@@ -75,16 +76,9 @@ const MovieModal = (props) => {
               onChange={(e) => setRating(e.target.value)}
           />
         </div>
-        <div className={style.field}>
+        <div className={style.select}>
           <label>GENRES</label>
-          <input
-              type='text'
-              value={genre}
-              onChange={(e) => setGenre(
-                  e.target.value.replaceAll(', ').split(',')
-              )
-              }
-          />
+          <SelectGenre genre={genre} setGenre={setGenre}/>
         </div>
         <div className={style.field}>
           <label>RUNTIME</label>

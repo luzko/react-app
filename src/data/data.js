@@ -6,6 +6,11 @@ const genres = [
   {id: 5, title: 'crime'}
 ];
 
+const genreOptions = genres.map((genre) => ({
+  value: genre.title,
+  label: genre.title,
+}));
+
 const sortOptions = [
   {id: 1, label: 'RELEASE DATE ↑', value: 'date_up'},
   {id: 2, label: 'RELEASE DATE ↓', value: 'date_down'},
@@ -17,4 +22,4 @@ const sortOptions = [
   {id: 8, label: 'RUNTIME ↓', value: 'runtime_down'}
 ];
 
-export {genres, sortOptions};
+export {genres, sortOptions, genreOptions};
