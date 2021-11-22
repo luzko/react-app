@@ -2,19 +2,19 @@ import React from 'react';
 import style from './DeleteMovie.module.css';
 import Modal from '../Modal/Modal';
 
-const DeleteMovie = ({show, action, movieId}) => {
+const DeleteMovie = ({showModal, closeModal, movieId, deleteMovie}) => {
   return (
       <Modal
           title="Delete Movie"
-          setVisible={() => action('close')}
-          visible={show}
+          visible={showModal}
+          setVisible={() => closeModal()}
       >
         <div className={style.delete}>
           <p>Are you sure you want to delete this movie?</p>
           <div className={style.buttons}>
             <button
                 className={style.button}
-                onClick={() => action('confirm', movieId)}
+                onClick={() => deleteMovie(movieId)}
             >
               Confirm
             </button>
