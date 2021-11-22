@@ -3,7 +3,6 @@ import style from './Modal.module.css';
 
 const Modal = ({title, children, visible, setVisible}) => {
   const rootClasses = [style.modal]
-
   rootClasses.push(visible ? style.active : '')
 
   return (

@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import style from './MovieList.module.css';
 import MovieCard from "../MovieCard";
-import DeleteMovie from "../DeleteMovie";
-import MovieModal from "../MovieModal";
 
 const MovieList = (props) => {
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import style from './MovieModal.module.css';
 import Modal from '../Modal';
 

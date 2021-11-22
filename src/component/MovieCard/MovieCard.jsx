@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import style from './MovieCard.module.css';
 import PropTypes from "prop-types";
 import MovieModal from '../MovieModal';
@@ -8,14 +8,11 @@ import MovieOptions from '../MovieOptions';
 const MovieCard = (props) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
   const [showOption, setShowOption] = useState(false)
-
   const closeEditModal = () => setShowEditModal(false);
   const closeDeleteModal = () => setShowDeleteModal(false);
   const openEditModal = () => setShowEditModal(true);
   const openDeleteModal = () => setShowDeleteModal(true);
-
   const closeOption = () => setShowOption(false)
   const openOption = () => setShowOption(true)
 

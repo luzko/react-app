@@ -3,7 +3,6 @@ import style from './MovieOptions.module.css';
 
 const MovieOptions = ({show, close, openEditModal, openDeleteModal}) => {
   const rootClasses = [style.movieOptions]
-
   rootClasses.push(show ? '' : style.hidden)
 
   return (
