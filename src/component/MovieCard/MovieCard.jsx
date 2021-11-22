@@ -1,57 +1,51 @@
-import React from "react";
+import React, { useState } from 'react';
 import style from './MovieCard.module.css';
 import PropTypes from "prop-types";
-import MovieOptions from '../MovieOptions';
+import MovieModal from '../MovieModal';
 
-class MovieCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {showOptions: false};
-  }
+const MovieCard = (props) => {
+  const [showModal, setShowModal] = useState(false);
 
-  optionAction = (action) => {
-    const {options, movie} = this.props;
-    options(action, movie.id);
-    this.setState({showOptions: false});
-  }
+  const closeModal = () => setShowModal(false);
 
-  toggleOption = () => {
-    this.setState((prevState) => ({showOptions: !prevState.showOptions}));
-  }
+  const showEditMovieModal = () => setShowModal(true);
 
-  render() {
-    const {movie} = this.props;
-    return (
-        <>
-          <div className={style.card}>
-            <div className={style.container}>
-              <img
-                  className={style.image}
-                  src={movie.poster}
-                  alt={movie.title}
-              />
-              <button
-                  className={style.button}
-                  onClick={this.toggleOption}
-              >
-                ...
-              </button>
-            </div>
-            <div className={style.name}>
-              <div>{movie.title}</div>
-              <div>{movie.release}</div>
-            </div>
-            <div className={style.genres}>{movie.genre.join(', ')}</div>
-            <div className={style.options}>
-              <MovieOptions
-                  show={this.state.showOptions}
-                  action={this.optionAction}
-              />
-            </div>
+  return (
+      <>
+        <div className={style.card}>
+          <div className={style.container}>
+            <img
+                className={style.image}
+                src={props.movie.poster}
+                alt={props.movie.title}
+            />
+            <button
+                className={style.edit}
+                onClick={showEditMovieModal}
+            >
+              edit
+            </button>
+            <button
+                className={style.remove}
+                onClick={() => props.deleteMovie(props.movie.id)}
+            >
+              remove
+            </button>
           </div>
-        </>
-    );
-  }
+          <div className={style.name}>
+            <div>{props.movie.title}</div>
+            <div>{props.movie.release}</div>
+          </div>
+          <div className={style.genres}>{props.movie.genre.join(', ')}</div>
+        </div>
+        <MovieModal
+            showModal={showModal}
+            closeModal={closeModal}
+            movie={props.movie}
+            updateMovie={props.updateMovie}
+        />
+      </>
+  );
 }
 
 MovieCard.propTypes = {

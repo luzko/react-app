@@ -1,28 +1,20 @@
 const genres = [
-  {id: 1, title: 'documentery'},
-  {id: 2, title: 'comedy'},
-  {id: 3, title: 'horror'},
-  {id: 4, title: 'crime'}
-];
-
-const fields = [
-  {id: 1, label: 'Title', type: 'text', key: 'title'},
-  {id: 2, label: 'Release Date', type: 'date', key: 'release'},
-  {id: 3, label: 'Movie Url', type: 'text', key: 'url'},
-  {id: 4, label: 'Rating', type: 'text', key: 'rating'},
-  {id: 5, label: 'Genre', type: 'select', key: 'genre'},
-  {id: 6, label: 'Runtime', type: 'text', key: 'runtime'},
-  {id: 7, label: 'Overview', type: 'textarea', key: 'overview'}
+  {id: 1, title: 'all'},
+  {id: 2, title: 'documentery'},
+  {id: 3, title: 'comedy'},
+  {id: 4, title: 'horror'},
+  {id: 5, title: 'crime'}
 ];
 
 const sortOptions = [
-  {id: 1, label: 'RELEASE DATE', value: 'date'},
-  {id: 2, label: 'NAME', value: 'name'}
+  {id: 1, label: 'RELEASE DATE ↑', value: 'date_up'},
+  {id: 2, label: 'RELEASE DATE ↓', value: 'date_down'},
+  {id: 3, label: 'NAME ↑', value: 'name_up'},
+  {id: 4, label: 'NAME ↓', value: 'name_down'},
+  {id: 5, label: 'RATING ↑', value: 'rating_up'},
+  {id: 6, label: 'RATING ↓', value: 'rating_down'},
+  {id: 7, label: 'RUNTIME ↑', value: 'runtime_up'},
+  {id: 8, label: 'RUNTIME ↓', value: 'runtime_down'}
 ];
 
-const genreOptions = genres.map((genre) => ({
-  value: genre.title,
-  label: genre.title,
-}));
-
-export {genres, sortOptions, fields, genreOptions};
+export {genres, sortOptions};

@@ -1,34 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './AddMovie.module.css';
 import MovieModal from '../MovieModal/MovieModal';
 
-class AddMovie extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {showModal: false}
-  }
+const AddMovie = (props) => {
+  const [showModal, setShowModal] = useState(false);
 
-  closeModal = () => {
-    this.setState({showModal: false})
-  }
+  const closeModal = () => setShowModal(false);
 
-  openModal = () => {
-    this.setState({showModal: true})
-  }
+  const openModal = () => setShowModal(true);
 
-  render() {
-    return (
-        <>
-          <button className={style.addButton} onClick={this.openModal}>
-            + ADD MOVIE
-          </button>
-          <MovieModal
-              show={this.state.showModal}
-              action={this.closeModal}
-          />
-        </>
-    );
-  }
-}
+  return (
+      <>
+        <button className={style.addButton} onClick={openModal}>
+          + ADD MOVIE
+        </button>
+        <MovieModal
+            showModal={showModal}
+            closeModal={closeModal}
+            addMovie={props.addMovie}
+        />
+      </>
+  );
+};
 
 export default AddMovie;
