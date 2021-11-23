@@ -6,10 +6,12 @@ const genres = [
   {id: 5, title: 'crime'}
 ];
 
-const genreOptions = genres.map((genre) => ({
-  value: genre.title,
-  label: genre.title,
-}));
+const genreOptions = [
+  'documentery',
+  'comedy',
+  'horror',
+  'crime'
+]
 
 const sortOptions = [
   {id: 1, label: 'RELEASE DATE ↑', value: 'date_up'},

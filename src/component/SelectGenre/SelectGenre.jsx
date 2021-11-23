@@ -1,53 +1,32 @@
-import React, {Component} from "react";
+import React, {useState} from 'react';
+import style from "./SelectGenre.module.css";
 import {genreOptions} from '../../data/data';
-import {components, default as ReactSelect} from "react-select";
 
-const Option = (props) => {
+const SelectGenre = (props) => {
+  const [show, setShow] = useState(false)
+  const rootClasses = [style.list]
+  rootClasses.push(show ? '' : style.hidden)
   return (
-      <div>
-        <components.Option {...props}>
-          <input
-              type="checkbox"
-              checked={props.isSelected}
-              onChange={() => null}
-          />{" "}
-          <label>{props.label}</label>
-        </components.Option>
-      </div>
-  );
-};
-
-export default class SelectGenre extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {optionSelected: this.selectedGenres(props.genre)}
-  }
-
-  selectedGenres = (genres) => {
-    return genres.map((genre) => ({value: genre, label: genre}))
-  }
-
-  arrayGenres = (selectedGenres) => {
-    return selectedGenres.map(select => select.label)
-  }
-
-  handleChange = (selected) => {
-    this.setState({optionSelected: selected});
-    this.props.setGenre(this.arrayGenres(selected))
-  };
-
-  render() {
-    return (
-        <ReactSelect
-            options={genreOptions}
-            isMulti
-            closeMenuOnSelect={false}
-            hideSelectedOptions={false}
-            components={{Option}}
-            onChange={this.handleChange}
-            allowSelectAll={true}
-            value={this.state.optionSelected}
-        />
-    );
-  }
+      <>
+        <div className={style.arrow} onClick={(e) => setShow(!show)}>
+          ▼
+        </div>
+        <div className={rootClasses.join(' ')}>
+          {
+            genreOptions.map(genre =>
+                <li className={style.li} key={genreOptions.indexOf(genre)}>
+                  <input
+                      type="checkbox"
+                      checked={props.genre?.indexOf(genre) > -1}
+                      value={genre}
+                      onChange={props.changeGenre}/>
+                  <label>{genre}</label>
+                </li>
+            )
+          }
+        </div>
+      </>
+  )
 }
+
+export default SelectGenre;

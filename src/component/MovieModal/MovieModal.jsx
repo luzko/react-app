@@ -39,6 +39,12 @@ const MovieModal = (props) => {
     resetField()
   }
 
+  const changeGenre = (event) => {
+    setGenre(genre?.indexOf(event.target?.value) > -1
+        ? genre.filter(genre => genre !== event.target?.value)
+        : [...genre, event.target?.value])
+  }
+
   return (
       <Modal title={isEdit ? 'EDIT MOVIE' : 'ADD MOVIE'}
              visible={props.showModal}
@@ -47,6 +53,7 @@ const MovieModal = (props) => {
         <div className={style.field}>
           <label>TITLE</label>
           <input
+              className={style.input}
               type='text'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -55,6 +62,7 @@ const MovieModal = (props) => {
         <div className={style.field}>
           <label>RELEASE DATE</label>
           <input
+              className={style.input}
               type='date'
               value={release}
               onChange={(e) => setRelease(e.target.value)}
@@ -63,6 +71,7 @@ const MovieModal = (props) => {
         <div className={style.field}>
           <label>POSTER</label>
           <input
+              className={style.input}
               type='text'
               value={poster}
               onChange={(e) => setPoster(e.target.value)}
@@ -71,18 +80,26 @@ const MovieModal = (props) => {
         <div className={style.field}>
           <label>RATING</label>
           <input
+              className={style.input}
               type='text'
               value={rating}
               onChange={(e) => setRating(e.target.value)}
           />
         </div>
-        <div className={style.select}>
+        <div className={style.field}>
           <label>GENRES</label>
-          <SelectGenre genre={genre} setGenre={setGenre}/>
+          <input
+              className={style.input}
+              type='text'
+              value={genre}
+              disabled={true}
+          />
+          <SelectGenre genre={genre} changeGenre={changeGenre}/>
         </div>
         <div className={style.field}>
           <label>RUNTIME</label>
           <input
+              className={style.input}
               type='text'
               value={runtime}
               onChange={(e) => setRuntime(e.target.value)}
@@ -91,6 +108,7 @@ const MovieModal = (props) => {
         <div className={style.field}>
           <label>OVERVIEW</label>
           <textarea
+              className={style.input}
               type='text'
               value={overview}
               onChange={(e) => setOverview(e.target.value)}
