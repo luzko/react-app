@@ -14,6 +14,16 @@ const MovieModal = (props) => {
   const [overview, setOverview] = useState(isEdit ? props.movie.overview : '')
 
   const resetField = () => {
+    setTitle(isEdit ? title : '')
+    setRelease(isEdit ? release : '')
+    setPoster(isEdit ? poster : '')
+    setRating(isEdit ? rating : '')
+    setGenre(isEdit ? genre : [])
+    setRuntime(isEdit ? runtime : '')
+    setOverview(isEdit ? overview : '')
+  }
+
+  const reset = () => {
     setTitle(isEdit ? props.movie.title : '')
     setRelease(isEdit ? props.movie.release : '')
     setPoster(isEdit ? props.movie.poster : '')
@@ -115,7 +125,7 @@ const MovieModal = (props) => {
           />
         </div>
         <div className={style.buttons}>
-          <button className={style.button} onClick={resetField}>
+          <button className={style.button} onClick={reset}>
             RESET
           </button>
           <button className={style.button} onClick={submit}>
