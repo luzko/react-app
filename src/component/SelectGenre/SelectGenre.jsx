@@ -6,6 +6,7 @@ const SelectGenre = (props) => {
   const [show, setShow] = useState(false)
   const rootClasses = [style.list]
   rootClasses.push(show ? '' : style.hidden)
+
   return (
       <>
         <div className={style.arrow} onClick={(e) => setShow(!show)}>
