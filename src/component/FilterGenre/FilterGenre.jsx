@@ -5,8 +5,9 @@ import Genre from "../Genre";
 const FilterGenre = ({genres}) => {
   return (
       <div className={style.genreList}>
+        <Genre title='ALL'/>
         {genres.map(genre =>
-            <Genre genre={genre} key={genre.id}/>
+            <Genre title={genre.title} key={genre.id}/>
         )}
       </div>
   );

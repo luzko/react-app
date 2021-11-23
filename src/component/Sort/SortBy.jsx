@@ -1,21 +1,23 @@
 import React from 'react';
+import SortOrder from '../SortOrder';
 import style from './SortBy.module.css';
 
-const SortBy = ({options, sortBy, changeSort}) => {
+const SortBy = (props) => {
   return (
       <div>
         <span className={style.label}>SORT BY:</span>
         <select
-            defaultValue={sortBy}
+            defaultValue={props.sortBy.field}
             className={style.dropdown}
-            onChange={(e) => changeSort(e.target.value)}
+            onChange={(e) => props.changeSort(e.target.value)}
         >
-          {options.map((option) => (
-              <option key={option.id} value={option.value}>
-                {option.label}
+          {props.options.map((option) => (
+              <option key={props.options.indexOf(option)} value={option}>
+                {option}
               </option>
           ))}
         </select>
+        <SortOrder sortBy={props.sortBy} changeOrder={props.changeOrder}/>
       </div>
   );
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import {mockMovies} from '../../data/mock-data';
-import {genres, sortOptions} from '../../data/data';
-import SortService from '../../service/SortService';
+import {genres, sort} from '../../data/data';
 import Header from "../Header";
 import MovieList from '../MovieList';
 import FilterGenre from '../FilterGenre';
@@ -14,15 +13,25 @@ import style from './App.module.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {movieList: [], sortBy: 'date_up'}
+    this.state = {
+      movieList: [], sortBy: {field: 'RELEASE DATE', direction: 'asc'}
+    }
     this.changeSort = this.changeSort.bind(this);
+    this.changeOrder = this.changeOrder.bind(this);
     this.addMovie = this.addMovie.bind(this);
     this.deleteMovie = this.deleteMovie.bind(this);
     this.updateMovie = this.updateMovie.bind(this);
   }
 
-  changeSort(order) {
-    this.setState({sortBy: order});
+  changeSort(field) {
+    const direction = {...this.state.sortBy}.direction
+    this.setState({sortBy: {field, direction}});
+  }
+
+  changeOrder(order) {
+    const field = {...this.state.sortBy}.field
+    const direction = order === 'asc' ? 'desc' : 'asc'
+    this.setState({sortBy: {field, direction}});
   }
 
   addMovie(movie) {
@@ -47,7 +56,8 @@ class App extends React.Component {
   }
 
   render() {
-    const movies = SortService.sort(this.state.movieList, this.state.sortBy);
+    //const movies = SortService.sort(this.state.movieList, this.state.sortBy);
+    const movies = this.state.movieList;
 
     return (
         <ErrorBoundary>
@@ -58,7 +68,8 @@ class App extends React.Component {
               <SortBy
                   sortBy={this.state.sortBy}
                   changeSort={this.changeSort}
-                  options={sortOptions}
+                  changeOrder={this.changeOrder}
+                  options={sort.fields}
               />
             </div>
             <Count count={movies.length}/>

@@ -1,27 +1,13 @@
 const genres = [
-  {id: 1, title: 'all'},
-  {id: 2, title: 'documentery'},
-  {id: 3, title: 'comedy'},
-  {id: 4, title: 'horror'},
-  {id: 5, title: 'crime'}
+  {id: 1, title: 'documentery'},
+  {id: 2, title: 'comedy'},
+  {id: 3, title: 'horror'},
+  {id: 4, title: 'crime'}
 ];
 
-const genreOptions = [
-  'documentery',
-  'comedy',
-  'horror',
-  'crime'
-]
+const sort = {
+  fields: ['RELEASE DATE', 'NAME', 'RATING', 'RUNTIME'],
+  direction: ['asc', 'desc']
+};
 
-const sortOptions = [
-  {id: 1, label: 'RELEASE DATE ↑', value: 'date_up'},
-  {id: 2, label: 'RELEASE DATE ↓', value: 'date_down'},
-  {id: 3, label: 'NAME ↑', value: 'name_up'},
-  {id: 4, label: 'NAME ↓', value: 'name_down'},
-  {id: 5, label: 'RATING ↑', value: 'rating_up'},
-  {id: 6, label: 'RATING ↓', value: 'rating_down'},
-  {id: 7, label: 'RUNTIME ↑', value: 'runtime_up'},
-  {id: 8, label: 'RUNTIME ↓', value: 'runtime_down'}
-];
-
-export {genres, sortOptions, genreOptions};
+export {genres, sort};

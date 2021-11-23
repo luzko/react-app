@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import style from "./SelectGenre.module.css";
-import {genreOptions} from '../../data/data';
+import {genres} from '../../data/data';
 
 const SelectGenre = (props) => {
   const [show, setShow] = useState(false)
@@ -14,14 +14,14 @@ const SelectGenre = (props) => {
         </div>
         <div className={rootClasses.join(' ')}>
           {
-            genreOptions.map(genre =>
-                <li className={style.li} key={genreOptions.indexOf(genre)}>
+            genres.map(genre =>
+                <li className={style.li} key={genres.indexOf(genre.title)}>
                   <input
                       type="checkbox"
-                      checked={props.genre?.indexOf(genre) > -1}
-                      value={genre}
+                      checked={props.genre?.indexOf(genre.title) > -1}
+                      value={genre.title}
                       onChange={props.changeGenre}/>
-                  <label>{genre}</label>
+                  <label>{genre.title}</label>
                 </li>
             )
           }
