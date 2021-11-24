@@ -1,0 +1,15 @@
+.button {
+  margin: 5px;
+  border-radius: 6px;
+  font-size: 18px;
+  color: #ffffff;
+  background-color: #f65261;
+}
+
+.buttons {
+  text-align: right;
+}
+
+.delete {
+  font-size: 15px;
+}

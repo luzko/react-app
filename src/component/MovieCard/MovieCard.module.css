@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   width: 300px;
   height: auto;
   display: flex;
@@ -6,8 +7,17 @@
   margin: 40px;
 }
 
-.image {
+.container {
+  position: relative;
   height: 400px;
+}
+
+.image {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 .name {
@@ -20,4 +30,21 @@
 
 .genres {
   color: gray;
+}
+
+.options {
+  top: 0;
+  right: 0;
+  position: absolute;
+}
+
+.button {
+  top: 0;
+  right: 0;
+  position: absolute;
+  margin: 5px;
+  border-radius: 6px;
+  font-size: 10px;
+  color: #ffffff;
+  background-color: #f65261;
 }

@@ -1,0 +1,32 @@
+.param {
+  color: #f65261;
+}
+
+.arrow {
+  text-align: right;
+  color: #f65261;
+  margin-top: -20px;
+}
+
+.select {
+  background-color: #424242;
+  width: 95%;
+}
+
+.li {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  padding-left: 0;
+  width: 50%;
+}
+
+.list {
+  margin-top: 10px;
+  display: grid;
+  grid-template-areas: "li li";
+}
+
+.hidden {
+  display: none;
+}

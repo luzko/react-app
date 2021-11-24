@@ -1,0 +1,38 @@
+.buttons {
+  text-align: right;
+}
+
+.button {
+  margin: 5px;
+  border-radius: 6px;
+  font-size: 18px;
+  color: #ffffff;
+  background-color: #f65261;
+}
+
+.field {
+  color: white;
+  text-align: left;
+  width: 100%;
+  padding: 10px 0;
+}
+
+label {
+  color: #f65261;
+  text-transform: uppercase;
+}
+
+.input {
+  background: white;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 1.6em;
+}
+
+textarea {
+  width: 100%;
+  font-size: 0.8em;
+  font-weight: 200;
+  min-height: 40px;
+  resize: vertical;
+}

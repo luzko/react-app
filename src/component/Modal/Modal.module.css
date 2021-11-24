@@ -1,0 +1,42 @@
+.modal {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.content {
+  position: relative;
+  padding: 25px;
+  background: #232323;
+  color: #f65261;
+  border-radius: 16px;
+  min-width: 400px;
+  font-size: 12px;
+}
+
+.modal.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  color: white;
+  font-size: 2em;
+  margin: 0;
+}
+
+.close {
+  position: absolute;
+  background: #232323;
+  color: white;
+  font-size: 20px;
+  border: 0;
+  top: 0;
+  right: 0;
+}

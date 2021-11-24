@@ -2,14 +2,19 @@ import React from 'react';
 import style from './MovieList.module.css';
 import MovieCard from "../MovieCard";
 
-const MovieList = ({movies}) => {
+const MovieList = (props) => {
   return (
       <div className={style.movieList}>
-        {movies.map(movie =>
-            <MovieCard movie={movie} key={movie.id}/>
+        {props.movies.map(movie =>
+            <MovieCard
+                key={movie.id}
+                movie={movie}
+                deleteMovie={props.deleteMovie}
+                updateMovie={props.updateMovie}
+            />
         )}
       </div>
   );
-};
+}
 
 export default MovieList;
