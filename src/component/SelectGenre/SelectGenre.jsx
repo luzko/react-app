@@ -15,7 +15,7 @@ const SelectGenre = (props) => {
         <div className={rootClasses.join(' ')}>
           {
             genres.map(genre =>
-                <li className={style.li} key={genres.indexOf(genre.title)}>
+                <li className={style.li} key={genre.id}>
                   <input
                       type="checkbox"
                       checked={props.genre?.indexOf(genre.title) > -1}

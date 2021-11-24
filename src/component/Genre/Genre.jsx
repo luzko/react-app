@@ -9,10 +9,7 @@ const Genre = ({title}) => {
 };
 
 Genre.propTypes = {
-  genre: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired
-};
+  title: PropTypes.string.isRequired,
+}
 
 export default Genre;

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import classes from "./SortOrder.module.css";
 
 function SortOrder({sortBy, changeOrder}) {
-  console.log(sortBy)
   return (
       <div className={classes.order} onClick={() => changeOrder(sortBy.direction)}>
         {sortBy.direction === 'asc' ? "▲" : "▼"}

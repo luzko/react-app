@@ -1,6 +1,7 @@
 import React from "react";
 import {mockMovies} from '../../data/mock-data';
 import {genres, sort} from '../../data/data';
+import SortService from '../../service/SortService';
 import Header from "../Header";
 import MovieList from '../MovieList';
 import FilterGenre from '../FilterGenre';
@@ -56,8 +57,7 @@ class App extends React.Component {
   }
 
   render() {
-    //const movies = SortService.sort(this.state.movieList, this.state.sortBy);
-    const movies = this.state.movieList;
+    const movies = SortService.sort(this.state.movieList, this.state.sortBy);
 
     return (
         <ErrorBoundary>
