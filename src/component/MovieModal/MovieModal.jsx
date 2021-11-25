@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import style from './MovieModal.module.css';
 import Modal from '../Modal';
 import SelectGenre from '../SelectGenre';
@@ -6,6 +6,7 @@ import SelectGenre from '../SelectGenre';
 const MovieModal = (props) => {
   const isEdit = props.movie ? true : false
   const [title, setTitle] = useState(isEdit ? props.movie.title : '')
+  const [tagline, setTagline] = useState(isEdit ? props.movie.tagline : '')
   const [release, setRelease] = useState(isEdit ? props.movie.release : '')
   const [poster, setPoster] = useState(isEdit ? props.movie.poster : '')
   const [rating, setRating] = useState(isEdit ? props.movie.rating : '')
@@ -13,8 +14,11 @@ const MovieModal = (props) => {
   const [runtime, setRuntime] = useState(isEdit ? props.movie.runtime : '')
   const [overview, setOverview] = useState(isEdit ? props.movie.overview : '')
 
+  useEffect(() => {}, [])
+
   const resetField = () => {
     setTitle(isEdit ? title : '')
+    setTagline(isEdit ? tagline: '')
     setRelease(isEdit ? release : '')
     setPoster(isEdit ? poster : '')
     setRating(isEdit ? rating : '')
@@ -25,6 +29,7 @@ const MovieModal = (props) => {
 
   const reset = () => {
     setTitle(isEdit ? props.movie.title : '')
+    setTagline(isEdit ? props.movie.tagline: '')
     setRelease(isEdit ? props.movie.release : '')
     setPoster(isEdit ? props.movie.poster : '')
     setRating(isEdit ? props.movie.rating : '')
@@ -36,6 +41,7 @@ const MovieModal = (props) => {
   const submit = () => {
     const movie = {
       id: isEdit ? props.movie.id : Date.now(),
+      tagline,
       title,
       release,
       poster,
@@ -67,6 +73,15 @@ const MovieModal = (props) => {
               type='text'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div className={style.field}>
+          <label>TAGLINE</label>
+          <input
+              className={style.input}
+              type='text'
+              value={tagline}
+              onChange={(e) => setTagline(e.target.value)}
           />
         </div>
         <div className={style.field}>

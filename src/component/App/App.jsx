@@ -1,7 +1,7 @@
-import React, {useState, useMemo, useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {mockMovies} from '../../data/mock-data';
 import {genres, sort} from '../../data/data';
-import SortService from '../../service/SortService';
+import {useSortedMovies} from "../../hook/useSortedMovies";
 import Header from "../Header";
 import MovieOverview from "../MovieOverview";
 import MovieList from '../MovieList';
@@ -13,9 +13,13 @@ import ErrorBoundary from "../ErrorBoundary";
 import style from './App.module.css';
 
 const App = () => {
-  const [movieList, setMovieList] = useState(mockMovies)
+  const [movieList, setMovieList] = useState([])
   const [sortBy, setSortBy] = useState({field: 'RELEASE DATE', direction: 'asc'})
   const [movieOverview, setMovieOverview] = useState(null)
+
+  useEffect(() => {
+    setMovieList(mockMovies)
+  }, [])
 
   const changeSort = useCallback((field) => {
     const direction = sortBy.direction
@@ -51,9 +55,7 @@ const App = () => {
     setMovieOverview(null)
   }, [movieOverview])
 
-  const movies = useMemo(() => {
-    return SortService.sort(movieList, sortBy);
-  }, [movieList, sortBy])
+  const movies = useSortedMovies(movieList, sortBy);
 
   return (
       <ErrorBoundary>
