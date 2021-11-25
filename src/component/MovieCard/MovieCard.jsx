@@ -24,6 +24,7 @@ const MovieCard = (props) => {
                 className={style.image}
                 src={props.movie.poster}
                 alt={props.movie.title}
+                onClick={() => props.showOverview(props.movie)}
             />
             <button
                 className={style.button}
@@ -34,7 +35,7 @@ const MovieCard = (props) => {
           </div>
           <div className={style.name}>
             <div>{props.movie.title}</div>
-            <div>{props.movie.release}</div>
+            <div>{props.movie.release.split('-')[0]}</div>
           </div>
           <div className={style.genres}>{props.movie.genre.join(', ')}</div>
           <div className={style.options}>
@@ -66,6 +67,7 @@ MovieCard.propTypes = {
   movie: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
+    tagline: PropTypes.string.isRequired,
     release: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     genre: PropTypes.arrayOf(PropTypes.string.isRequired),

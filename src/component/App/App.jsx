@@ -3,6 +3,7 @@ import {mockMovies} from '../../data/mock-data';
 import {genres, sort} from '../../data/data';
 import SortService from '../../service/SortService';
 import Header from "../Header";
+import MovieOverview from "../MovieOverview";
 import MovieList from '../MovieList';
 import FilterGenre from '../FilterGenre';
 import SortBy from '../Sort';
@@ -14,6 +15,7 @@ import style from './App.module.css';
 const App = () => {
   const [movieList, setMovieList] = useState(mockMovies)
   const [sortBy, setSortBy] = useState({field: 'RELEASE DATE', direction: 'asc'})
+  const [movieOverview, setMovieOverview] = useState(null)
 
   const changeSort = useCallback((field) => {
     const direction = sortBy.direction
@@ -41,13 +43,28 @@ const App = () => {
     setMovieList([...movies])
   }, [movieList])
 
+  const showOverview = useCallback((movie) => {
+    setMovieOverview(movie)
+  }, [movieOverview])
+
+  const closeOverview = useCallback(() => {
+    setMovieOverview(null)
+  }, [movieOverview])
+
   const movies = useMemo(() => {
     return SortService.sort(movieList, sortBy);
   }, [movieList, sortBy])
 
   return (
       <ErrorBoundary>
-        <Header addMovie={addMovie}/>
+        {movieOverview ? (
+            <MovieOverview
+                movie={movieOverview}
+                closeOverview={closeOverview}
+            />
+        ) : (
+            <Header addMovie={addMovie}/>
+        )}
         <main className={style.main}>
           <div className={style.filterSort}>
             <FilterGenre genres={genres}/>
@@ -63,6 +80,7 @@ const App = () => {
               movies={movies}
               updateMovie={updateMovie}
               deleteMovie={deleteMovie}
+              showOverview={showOverview}
           />
         </main>
         <Footer/>
