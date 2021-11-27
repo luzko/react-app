@@ -9,7 +9,7 @@ const MovieOverview = (props) => {
         <div className={style.overview}>
           <div className={style.logoAndButton}>
             <img src={logo} alt='logo' className={style.logo}/>
-            <i className={style.icon} onClick={props.closeOverview}>
+            <i className={style.icon} onClick={() => props.setMovieOverview(null)}>
               🔎
             </i>
           </div>

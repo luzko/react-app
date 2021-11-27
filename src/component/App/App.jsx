@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {mockMovies} from '../../data/mock-data';
 import {genres, sort} from '../../data/data';
 import {useSortedMovies} from "../../hook/useSortedMovies";
+import {useToggleOverview} from "../../hook/useToggleOverview";
 import Header from "../Header";
 import MovieOverview from "../MovieOverview";
 import MovieList from '../MovieList';
@@ -15,7 +16,7 @@ import style from './App.module.css';
 const App = () => {
   const [movieList, setMovieList] = useState([])
   const [sortBy, setSortBy] = useState({field: 'RELEASE DATE', direction: 'asc'})
-  const [movieOverview, setMovieOverview] = useState(null)
+  const [movieOverview, setMovieOverview] = useToggleOverview()
 
   useEffect(() => {
     setMovieList(mockMovies)
@@ -47,14 +48,6 @@ const App = () => {
     setMovieList([...movies])
   }, [movieList])
 
-  const showOverview = useCallback((movie) => {
-    setMovieOverview(movie)
-  }, [movieOverview])
-
-  const closeOverview = useCallback(() => {
-    setMovieOverview(null)
-  }, [movieOverview])
-
   const movies = useSortedMovies(movieList, sortBy);
 
   return (
@@ -62,7 +55,7 @@ const App = () => {
         {movieOverview ? (
             <MovieOverview
                 movie={movieOverview}
-                closeOverview={closeOverview}
+                setMovieOverview={setMovieOverview}
             />
         ) : (
             <Header addMovie={addMovie}/>
@@ -82,7 +75,7 @@ const App = () => {
               movies={movies}
               updateMovie={updateMovie}
               deleteMovie={deleteMovie}
-              showOverview={showOverview}
+              setMovieOverview={setMovieOverview}
           />
         </main>
         <Footer/>

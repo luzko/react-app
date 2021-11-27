@@ -24,7 +24,7 @@ const MovieCard = (props) => {
                 className={style.image}
                 src={props.movie.poster}
                 alt={props.movie.title}
-                onClick={() => props.showOverview(props.movie)}
+                onClick={() => props.setMovieOverview(props.movie)}
             />
             <button
                 className={style.button}
