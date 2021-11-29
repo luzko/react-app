@@ -1,4 +1,5 @@
 .headerText {
+  margin-top: 50px;
   font-size: 26px;
   color: #ffffff;
   margin-left: 10vw;
@@ -19,10 +20,12 @@
   border-radius: 6px;
   font-size: 18px;
   background-color: darkgray;
+  margin-bottom: 50px;
 }
 
 .searchButton {
   width: 25%;
+  height: 50px;
   border-radius: 6px;
   font-size: 18px;
   color: #ffffff;

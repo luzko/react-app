@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useCallback, useEffect, useState} from 'react';
 import {mockMovies} from '../../data/mock-data';
 import {genres, sort} from '../../data/data';
-import SortService from '../../service/SortService';
+import {useSortedMovies} from "../../hook/useSortedMovies";
+import {useToggleOverview} from "../../hook/useToggleOverview";
 import Header from "../Header";
+import MovieOverview from "../MovieOverview";
 import MovieList from '../MovieList';
 import FilterGenre from '../FilterGenre';
 import SortBy from '../Sort';
@@ -11,78 +13,74 @@ import Footer from "../Footer";
 import ErrorBoundary from "../ErrorBoundary";
 import style from './App.module.css';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      movieList: [], sortBy: {field: 'RELEASE DATE', direction: 'asc'}
-    }
-    this.changeSort = this.changeSort.bind(this);
-    this.changeOrder = this.changeOrder.bind(this);
-    this.addMovie = this.addMovie.bind(this);
-    this.deleteMovie = this.deleteMovie.bind(this);
-    this.updateMovie = this.updateMovie.bind(this);
-  }
+const App = () => {
+  const [movieList, setMovieList] = useState([])
+  const [sortBy, setSortBy] = useState({field: 'RELEASE DATE', direction: 'asc'})
+  const [movieOverview, setMovieOverview] = useToggleOverview()
 
-  changeSort(field) {
-    const direction = {...this.state.sortBy}.direction
-    this.setState({sortBy: {field, direction}});
-  }
+  useEffect(() => {
+    setMovieList(mockMovies)
+  }, [])
 
-  changeOrder(order) {
-    const field = {...this.state.sortBy}.field
+  const changeSort = useCallback((field) => {
+    const direction = sortBy.direction
+    setSortBy({field, direction})
+  }, [sortBy])
+
+  const changeOrder = useCallback((order) => {
+    const field = sortBy.field
     const direction = order === 'asc' ? 'desc' : 'asc'
-    this.setState({sortBy: {field, direction}});
-  }
+    setSortBy({field, direction})
+  }, [sortBy])
 
-  addMovie(movie) {
-    this.setState({movieList: [...this.state.movieList, movie]});
-  }
+  const addMovie = useCallback((movie) => {
+    setMovieList([...movieList, movie])
+  }, [movieList])
 
-  deleteMovie(id) {
-    this.setState({
-      movieList: this.state.movieList.filter((movie) => movie.id !== id)
-    });
-  }
+  const deleteMovie = useCallback((id) => {
+    setMovieList(movieList.filter((movie) => movie.id !== id))
+  }, [movieList])
 
-  updateMovie(movie) {
-    let movies = this.state.movieList;
-    const movieIndex = movies.findIndex((x) => x.id === movie.id);
-    movies[movieIndex] = movie;
-    this.setState({movieList: movies});
-  }
+  const updateMovie = useCallback((movie) => {
+    let movies = movieList
+    const movieIndex = movies.findIndex((x) => x.id === movie.id)
+    movies[movieIndex] = movie
+    setMovieList([...movies])
+  }, [movieList])
 
-  componentDidMount() {
-    this.setState({movieList: mockMovies})
-  }
+  const movies = useSortedMovies(movieList, sortBy);
 
-  render() {
-    const movies = SortService.sort(this.state.movieList, this.state.sortBy);
-
-    return (
-        <ErrorBoundary>
-          <Header addMovie={this.addMovie}/>
-          <main className={style.main}>
-            <div className={style.filterSort}>
-              <FilterGenre genres={genres}/>
-              <SortBy
-                  sortBy={this.state.sortBy}
-                  changeSort={this.changeSort}
-                  changeOrder={this.changeOrder}
-                  options={sort.fields}
-              />
-            </div>
-            <Count count={movies.length}/>
-            <MovieList
-                movies={movies}
-                updateMovie={this.updateMovie}
-                deleteMovie={this.deleteMovie}
+  return (
+      <ErrorBoundary>
+        {movieOverview ? (
+            <MovieOverview
+                movie={movieOverview}
+                setMovieOverview={setMovieOverview}
             />
-          </main>
-          <Footer/>
-        </ErrorBoundary>
-    );
-  }
+        ) : (
+            <Header addMovie={addMovie}/>
+        )}
+        <main className={style.main}>
+          <div className={style.filterSort}>
+            <FilterGenre genres={genres}/>
+            <SortBy
+                sortBy={sortBy}
+                changeSort={changeSort}
+                changeOrder={changeOrder}
+                options={sort.fields}
+            />
+          </div>
+          <Count count={movies.length}/>
+          <MovieList
+              movies={movies}
+              updateMovie={updateMovie}
+              deleteMovie={deleteMovie}
+              setMovieOverview={setMovieOverview}
+          />
+        </main>
+        <Footer/>
+      </ErrorBoundary>
+  );
 }
 
 export default App;

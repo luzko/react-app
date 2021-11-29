@@ -11,6 +11,7 @@ const MovieList = (props) => {
                 movie={movie}
                 deleteMovie={props.deleteMovie}
                 updateMovie={props.updateMovie}
+                setMovieOverview={props.setMovieOverview}
             />
         )}
       </div>

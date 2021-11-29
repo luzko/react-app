@@ -1,0 +1,86 @@
+.overview {
+  background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.6)),
+  url('https://miro.medium.com/max/1400/1*5lyavS59mazOFnb55Z6znQ.png');
+  padding: 10px;
+}
+
+.logoAndButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.logo {
+  width: 110px;
+}
+
+.movieDetails {
+  display: flex;
+  flex-direction: row;
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+.icon {
+  font-size: 30px;
+}
+
+.card {
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  margin: 40px;
+}
+
+.image {
+  height: 100%;
+}
+
+.text {
+  margin-left: 60px;
+  margin-right: 60px;
+  width: 100%;
+}
+
+.nameRating {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  line-height: 1;
+}
+
+.title {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.rating {
+  font-size: 40px;
+  color: #bdf84e;
+  margin-left: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.overviewText {
+  color: #ffffff;
+}
+
+.date {
+  display: flex;
+  flex-direction: row;
+  font-size: 28px;
+  color: #f65261;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.date span {
+  margin-right: 50px;
+}
+
+.year {
+  margin-right: 40px;
+}

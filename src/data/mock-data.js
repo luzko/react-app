@@ -2,6 +2,7 @@ const mockMovies = [
   {
     id: 1,
     title: 'The Green Mile',
+    tagline: 'Paul Edgecombe didn\'t believe in miracles. Until I ran into one of them',
     release: '1999-11-14',
     poster: 'https://nathanburgessinsights.files.wordpress.com/2018/10/img_1794.jpg',
     rating: 8.8,
@@ -12,6 +13,7 @@ const mockMovies = [
   {
     id: 2,
     title: 'Forrest Gump',
+    tagline: 'The world will never be the same again after you see it through the eyes of Forrest Gump',
     release: '1998-08-13',
     poster: 'https://www.2semechki.ru/site-content/uploads/images/permmag/forestgamp_dvd.jpg',
     rating: 8.6,
@@ -22,6 +24,7 @@ const mockMovies = [
   {
     id: 3,
     title: 'Interstellar',
+    tagline: 'Humanity\'s next step will be its greatest',
     release: '1997-07-12',
     rating: 8.6,
     genre: ['horror', 'documentery'],
@@ -32,6 +35,7 @@ const mockMovies = [
   {
     id: 4,
     title: 'Intouchables',
+    tagline: 'Sometimes you have to reach into someone else\'s world to find out what\'s missing in your own',
     release: '1997-08-08',
     rating: 8.6,
     genre: ['crime', 'horror'],
@@ -42,6 +46,7 @@ const mockMovies = [
   {
     id: 5,
     title: 'The Matrix',
+    tagline: 'Welcome to the real world',
     release: '1991-05-05',
     rating: 8.1,
     genre: ['documentery', 'crime'],
@@ -52,6 +57,7 @@ const mockMovies = [
   {
     id: 6,
     title: 'Schindler\'s List',
+    tagline: 'This list is life',
     release: '1981-04-04',
     rating: 7.1,
     genre: ['documentery'],
@@ -62,6 +68,7 @@ const mockMovies = [
   {
     id: 7,
     title: 'Shutter Island',
+    tagline: 'Some places never let you go',
     release: '1961-07-09',
     rating: 7.3,
     genre: ['horror', 'crime'],
