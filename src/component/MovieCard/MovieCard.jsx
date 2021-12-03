@@ -22,7 +22,7 @@ const MovieCard = (props) => {
           <div className={style.container}>
             <img
                 className={style.image}
-                src={props.movie.poster}
+                src={props.movie.poster_path}
                 alt={props.movie.title}
                 onClick={() => props.setMovieOverview(props.movie)}
             />
@@ -35,9 +35,9 @@ const MovieCard = (props) => {
           </div>
           <div className={style.name}>
             <div>{props.movie.title}</div>
-            <div>{props.movie.release.split('-')[0]}</div>
+            <div>{props.movie.release_date.split('-')[0]}</div>
           </div>
-          <div className={style.genres}>{props.movie.genre.join(', ')}</div>
+          <div className={style.genres}>{props.movie.genres.join(', ')}</div>
           <div className={style.options}>
             <MovieOptions
                 show={showOption}
@@ -51,13 +51,11 @@ const MovieCard = (props) => {
             showModal={showDeleteModal}
             closeModal={closeDeleteModal}
             movieId={props.movie.id}
-            deleteMovie={props.deleteMovie}
         />
         <MovieModal
             showModal={showEditModal}
             closeModal={closeEditModal}
             movie={props.movie}
-            updateMovie={props.updateMovie}
         />
       </>
   );
@@ -68,12 +66,15 @@ MovieCard.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     tagline: PropTypes.string.isRequired,
-    release: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    genre: PropTypes.arrayOf(PropTypes.string.isRequired),
-    poster: PropTypes.string.isRequired,
-    runtime: PropTypes.number.isRequired,
+    vote_average: PropTypes.number.isRequired,
+    vote_count: PropTypes.number.isRequired,
+    release_date: PropTypes.string.isRequired,
+    poster_path: PropTypes.string.isRequired,
     overview: PropTypes.string.isRequired,
+    budget: PropTypes.number.isRequired,
+    revenue: PropTypes.number.isRequired,
+    genres: PropTypes.arrayOf(PropTypes.string.isRequired),
+    runtime: PropTypes.number.isRequired,
   }).isRequired
 };
 

@@ -1,23 +1,34 @@
 import React from 'react';
 import SortOrder from '../SortOrder';
 import style from './SortBy.module.css';
+import {options} from '../../data/data';
+import {getMovies, setSort} from '../../store/actions';
+import store from '../../store/store';
+import {useSelector} from 'react-redux';
 
-const SortBy = (props) => {
+const SortBy = () => {
+  const sort = useSelector((state) => state.sort);
+
+  const onSelectionChange = (value) => {
+    store.dispatch(setSort(value));
+    store.dispatch(getMovies());
+  };
+
   return (
       <div>
         <span className={style.label}>SORT BY:</span>
         <select
-            defaultValue={props.sortBy.field}
+            defaultValue={sort}
             className={style.dropdown}
-            onChange={(e) => props.changeSort(e.target.value)}
+            onChange={(e) => onSelectionChange(e.target.value)}
         >
-          {props.options.map((option) => (
-              <option key={props.options.indexOf(option)} value={option}>
-                {option}
+          {options.map((option) => (
+              <option key={option.id} value={option.value}>
+                {option.label}
               </option>
           ))}
         </select>
-        <SortOrder sortBy={props.sortBy} changeOrder={props.changeOrder}/>
+        <SortOrder/>
       </div>
   );
 };

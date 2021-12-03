@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './MovieModal.module.css';
 import Modal from '../Modal';
 import SelectGenre from '../SelectGenre';
@@ -7,18 +7,19 @@ const MovieModal = (props) => {
   const isEdit = props.movie ? true : false
   const [title, setTitle] = useState(isEdit ? props.movie.title : '')
   const [tagline, setTagline] = useState(isEdit ? props.movie.tagline : '')
-  const [release, setRelease] = useState(isEdit ? props.movie.release : '')
-  const [poster, setPoster] = useState(isEdit ? props.movie.poster : '')
-  const [rating, setRating] = useState(isEdit ? props.movie.rating : '')
-  const [genre, setGenre] = useState(isEdit ? props.movie.genre : [])
+  const [release, setRelease] = useState(isEdit ? props.movie.release_date : '')
+  const [poster, setPoster] = useState(isEdit ? props.movie.poster_path : '')
+  const [rating, setRating] = useState(isEdit ? props.movie.vote_average : '')
+  const [genre, setGenre] = useState(isEdit ? props.movie.genres : [])
   const [runtime, setRuntime] = useState(isEdit ? props.movie.runtime : '')
   const [overview, setOverview] = useState(isEdit ? props.movie.overview : '')
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+  }, [])
 
   const resetField = () => {
     setTitle(isEdit ? title : '')
-    setTagline(isEdit ? tagline: '')
+    setTagline(isEdit ? tagline : '')
     setRelease(isEdit ? release : '')
     setPoster(isEdit ? poster : '')
     setRating(isEdit ? rating : '')
@@ -29,11 +30,11 @@ const MovieModal = (props) => {
 
   const reset = () => {
     setTitle(isEdit ? props.movie.title : '')
-    setTagline(isEdit ? props.movie.tagline: '')
-    setRelease(isEdit ? props.movie.release : '')
-    setPoster(isEdit ? props.movie.poster : '')
-    setRating(isEdit ? props.movie.rating : '')
-    setGenre(isEdit ? props.movie.genre : [])
+    setTagline(isEdit ? props.movie.tagline : '')
+    setRelease(isEdit ? props.movie.release_date : '')
+    setPoster(isEdit ? props.movie.poster_path : '')
+    setRating(isEdit ? props.movie.vote_average : '')
+    setGenre(isEdit ? props.movie.genres : [])
     setRuntime(isEdit ? props.movie.runtime : '')
     setOverview(isEdit ? props.movie.overview : '')
   }
@@ -50,7 +51,7 @@ const MovieModal = (props) => {
       runtime,
       overview
     }
-    isEdit ? props.updateMovie(movie) : props.addMovie(movie)
+    // isEdit ? props.updateMovie(movie) : props.addMovie(movie)
     props.closeModal()
     resetField()
   }
