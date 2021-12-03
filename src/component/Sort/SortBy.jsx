@@ -9,7 +9,7 @@ import {useSelector} from 'react-redux';
 const SortBy = () => {
   const sort = useSelector((state) => state.sort);
 
-  const onSelectionChange = (value) => {
+  const selectionChange = (value) => {
     store.dispatch(setSort(value));
     store.dispatch(getMovies());
   };
@@ -20,7 +20,7 @@ const SortBy = () => {
         <select
             defaultValue={sort}
             className={style.dropdown}
-            onChange={(e) => onSelectionChange(e.target.value)}
+            onChange={(e) => selectionChange(e.target.value)}
         >
           {options.map((option) => (
               <option key={option.id} value={option.value}>

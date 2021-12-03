@@ -4,6 +4,7 @@ import Header from "../Header";
 import MovieOverview from "../MovieOverview";
 import MovieList from '../MovieList';
 import SortBy from '../Sort';
+import FilterGenre from '../FilterGenre';
 import Count from '../Count';
 import Footer from "../Footer";
 import ErrorBoundary from "../ErrorBoundary";
@@ -42,7 +43,7 @@ const App = () => {
         )}
         <main className={style.main}>
           <div className={style.filterSort}>
-
+            <FilterGenre/>
             <SortBy/>
           </div>
           <Count/>

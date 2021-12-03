@@ -2,11 +2,11 @@ import actionType from './actionType';
 import axios from 'axios';
 import store from './store';
 
-export const getMovies = () => 
+export const getMovies = () =>
   dispatch =>
       axios.get('http://localhost:4000/movies', {
         params: {
-          filter: store.getState().filer,
+          filter: store.getState().filter,
           sortBy: store.getState().sort,
           sortOrder: store.getState().sortOrder,
         },
@@ -52,9 +52,9 @@ export const setSortOrder = sortOrder => ({
   }
 });
 
-export const setFilter = genre => ({
+export const setFilter = filter => ({
   type: actionType.SET_FILTER,
   payload: {
-    genre
+    filter
   }
 });
