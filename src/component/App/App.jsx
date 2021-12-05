@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useToggleOverview} from "../../hook/useToggleOverview";
+import {useFetch} from "../../hook/useFetch";
 import Header from "../Header";
 import MovieOverview from "../MovieOverview";
 import MovieList from '../MovieList';
@@ -10,23 +11,12 @@ import Footer from "../Footer";
 import ErrorBoundary from "../ErrorBoundary";
 import Loader from "../Loader";
 import style from './App.module.css';
-import {useDispatch, useSelector} from 'react-redux';
-import {getMovies, moviesProcessing} from '../../store/actions';
+import {useSelector} from 'react-redux';
 
 const App = () => {
   const [movieOverview, setMovieOverview] = useToggleOverview()
   const processing = useSelector((state) => state.processing);
   const error = useSelector((state) => state.error);
-
-  const useFetch = () => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch((dispatch) => {
-        dispatch(moviesProcessing());
-        dispatch(getMovies());
-      });
-    }, []);
-  };
 
   useFetch();
 
