@@ -16,9 +16,20 @@ const FilterGenre = () => {
 
   return (
       <div className={style.genreList}>
-        <Genre title='ALL' value='' filterChange={filterChange}/>
+        <Genre
+            title='ALL'
+            value=''
+            filterGenre={filterGenre}
+            filterChange={filterChange}
+        />
         {filterGenres.map(genre =>
-            <Genre title={genre.title} value={genre.title} key={genre.id} filterChange={filterChange}/>
+            <Genre
+                key={genre.id}
+                title={genre.title}
+                value={genre.title}
+                filterGenre={filterGenre}
+                filterChange={filterChange}
+            />
         )}
       </div>
   );
