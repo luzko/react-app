@@ -25,22 +25,29 @@ const reducer = (state = initial, action) => {
     case actionType.SET_MOVIES:
       return {
         ...state,
-        processing: true,
+        processing: false,
+        error: null,
         movies: action.payload.movies
       }
     case actionType.SET_SORT:
       return {
         ...state,
+        processing: true,
+        error: null,
         sort: action.payload.sortBy
       }
     case actionType.SET_SORT_ORDER:
       return {
         ...state,
+        processing: true,
+        error: null,
         sortOrder: action.payload.sortOrder
       }
     case actionType.SET_FILTER:
       return {
         ...state,
+        processing: true,
+        error: null,
         filter: action.payload.filter
       }
     default:

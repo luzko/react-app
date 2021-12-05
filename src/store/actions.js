@@ -18,8 +18,6 @@ export const getMovies = () =>
         dispatch(errorProcessing(error));
       });
 
-
-
 export const moviesProcessing = () => ({
   type: actionType.PROCESSING_START
 });

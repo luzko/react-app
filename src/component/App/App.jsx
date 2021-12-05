@@ -8,28 +8,27 @@ import FilterGenre from '../FilterGenre';
 import Count from '../Count';
 import Footer from "../Footer";
 import ErrorBoundary from "../ErrorBoundary";
+import Loader from "../Loader";
 import style from './App.module.css';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getMovies, moviesProcessing} from '../../store/actions';
 
 const App = () => {
   const [movieOverview, setMovieOverview] = useToggleOverview()
+  const processing = useSelector((state) => state.processing);
+  const error = useSelector((state) => state.error);
 
-  function fetchMovies() {
-    return (dispatch) => {
-      dispatch(moviesProcessing());
-      dispatch(getMovies());
-    };
-  }
-
-  const useFetching = () => {
+  const useFetch = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-      dispatch(fetchMovies());
+      dispatch((dispatch) => {
+        dispatch(moviesProcessing());
+        dispatch(getMovies());
+      });
     }, []);
   };
 
-  useFetching();
+  useFetch();
 
   return (
       <ErrorBoundary>
@@ -46,8 +45,15 @@ const App = () => {
             <FilterGenre/>
             <SortBy/>
           </div>
-          <Count/>
-          <MovieList setMovieOverview={setMovieOverview}/>
+          {processing
+              ? <Loader/>
+              : error
+                  ? <div className={style.error}>{error.toString()}</div>
+                  : <>
+                    <Count/>
+                    <MovieList setMovieOverview={setMovieOverview}/>
+                  </>
+          }
         </main>
         <Footer/>
       </ErrorBoundary>
