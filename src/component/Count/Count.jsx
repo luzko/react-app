@@ -1,10 +1,8 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import style from './Count.module.css';
-import {useSelector} from 'react-redux';
 
-const Count = () => {
-  const count = useSelector((state) => state.movies.length);
-
+const Count = ({count}) => {
   return (
       <div className={style.count}>
         {count} movies found
@@ -12,4 +10,10 @@ const Count = () => {
   );
 }
 
-export default Count;
+const mapStateToProps = (state) => ({
+  count: state.movies.length
+});
+
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Count);

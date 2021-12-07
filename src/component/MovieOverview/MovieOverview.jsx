@@ -11,7 +11,7 @@ const MovieOverview = (props) => {
             <img src={logo} alt='logo' className={style.logo}/>
             <i className={style.icon}
                onClick={() => props.setMovieOverview(null)}>
-              🔎
+              ✕
             </i>
           </div>
           <div className={style.movieDetails}>

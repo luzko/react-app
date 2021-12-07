@@ -1,24 +1,26 @@
-import React from 'react';
+import React, {useEffect} from "react";
+import {connect} from 'react-redux';
+import style from './App.module.css';
 import {useToggleOverview} from "../../hook/useToggleOverview";
-import {useFetch} from "../../hook/useFetch";
+import ErrorBoundary from "../ErrorBoundary";
 import Header from "../Header";
 import MovieOverview from "../MovieOverview";
 import MovieList from '../MovieList';
-import SortBy from '../Sort';
 import FilterGenre from '../FilterGenre';
+import SortBy from '../Sort';
 import Count from '../Count';
-import Footer from "../Footer";
-import ErrorBoundary from "../ErrorBoundary";
 import Loader from "../Loader";
-import style from './App.module.css';
-import {useSelector} from 'react-redux';
+import Footer from "../Footer";
 
-const App = () => {
+import {getMovies, moviesProcessing} from '../../store/actions';
+
+const App = ({isLoad, error, movies, processing, fetchMovies}) => {
   const [movieOverview, setMovieOverview] = useToggleOverview()
-  const processing = useSelector((state) => state.processing);
-  const error = useSelector((state) => state.error);
 
-  useFetch();
+  useEffect(() => {
+    processing();
+    fetchMovies();
+  }, []);
 
   return (
       <ErrorBoundary>
@@ -35,13 +37,16 @@ const App = () => {
             <FilterGenre/>
             <SortBy/>
           </div>
-          {processing
+          {isLoad
               ? <Loader/>
               : error
                   ? <div className={style.error}>{error.toString()}</div>
                   : <>
                     <Count/>
-                    <MovieList setMovieOverview={setMovieOverview}/>
+                    <MovieList
+                        movies={movies}
+                        setMovieOverview={setMovieOverview}
+                    />
                   </>
           }
         </main>
@@ -50,4 +55,15 @@ const App = () => {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  isLoad: state.processing,
+  error: state.error,
+  movies: state.movies
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  processing: () => dispatch(moviesProcessing()),
+  fetchMovies: () => dispatch(getMovies())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

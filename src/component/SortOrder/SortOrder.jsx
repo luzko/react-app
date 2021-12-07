@@ -1,24 +1,29 @@
 import React from "react";
-import classes from "./SortOrder.module.css";
+import {connect} from 'react-redux';
+import style from "./SortOrder.module.css";
 import {getMovies, setSortOrder} from '../../store/actions';
-import store from '../../store/store';
-import {useSelector} from 'react-redux';
 
-const SortOrder = () => {
-  const sortOrder = useSelector((state) => state.sortOrder);
-
+const SortOrder = ({sortOrderMovie, setSortOrderMovie, fetchMovies}) => {
   const onSelectionChange = (value) => {
-    const direction = value === 'asc' ? 'desc' : 'asc'
-    store.dispatch(setSortOrder(direction));
-    store.dispatch(getMovies());
+    setSortOrderMovie(value === 'asc' ? 'desc' : 'asc');
+    fetchMovies();
   };
 
   return (
-      <div className={classes.order}
-           onClick={() => onSelectionChange(sortOrder)}>
-        {sortOrder === 'asc' ? "▲" : "▼"}
+      <div className={style.order}
+           onClick={() => onSelectionChange(sortOrderMovie)}>
+        {sortOrderMovie === 'asc' ? "▲" : "▼"}
       </div>
   );
 }
 
-export default SortOrder;
+const mapStateToProps = (state) => ({
+  sortOrderMovie: state.sortOrder
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setSortOrderMovie: (sortOrderMovie) => dispatch(setSortOrder(sortOrderMovie)),
+  fetchMovies: () => dispatch(getMovies())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SortOrder);

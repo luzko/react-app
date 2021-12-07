@@ -1,17 +1,14 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import style from './FilterGenre.module.css';
 import Genre from "../Genre";
 import {filterGenres} from '../../data/data';
 import {getMovies, setFilter} from '../../store/actions';
-import store from '../../store/store';
-import {useSelector} from 'react-redux';
 
-const FilterGenre = () => {
-  const filterGenre = useSelector((state) => state.filter);
-
+const FilterGenre = ({filterGenre, setFilterGenre, fetchMovies}) => {
   const filterChange = (value) => {
-    store.dispatch(setFilter(value));
-    store.dispatch(getMovies());
+    setFilterGenre(value);
+    fetchMovies();
   };
 
   return (
@@ -35,4 +32,13 @@ const FilterGenre = () => {
   );
 };
 
-export default FilterGenre;
+const mapStateToProps = (state) => ({
+  filterGenre: state.filter
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setFilterGenre: (filter) => dispatch(setFilter(filter)),
+  fetchMovies: () => dispatch(getMovies())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterGenre);
