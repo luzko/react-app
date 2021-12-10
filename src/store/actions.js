@@ -1,5 +1,6 @@
 import actionType from './actionType';
 import axios from 'axios';
+import {getApi} from '../service/apiService';
 
 /*
 export const createMovie = () => () {}
@@ -10,15 +11,10 @@ export const updateMovie = () => () {}
 */
 
 export const getMovies = () => (dispatch, getState) => {
-  axios.get('http://localhost:4000/movies', {
-    params: {
-      filter: getState().filter,
-      sortBy: getState().sort,
-      sortOrder: getState().sortOrder,
-    },
-  })
-  .then(response => {
-    dispatch(setMovies(response.data.data));
+  const {filterSort} = getState()
+  getApi(filterSort)
+  .then(movies => {
+    dispatch(setMovies(movies));
   })
   .catch(error => {
     dispatch(errorProcessing(error));

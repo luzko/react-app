@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import style from './SortBy.module.css';
 import SortOrder from '../SortOrder';
-import {options} from '../../data/data';
+import {options} from '../../constant/constant';
 import {getMovies, setSort} from '../../store/actions';
 
 const SortBy = ({sortMovie, setSortMovie, fetchMovies}) => {
@@ -31,7 +31,7 @@ const SortBy = ({sortMovie, setSortMovie, fetchMovies}) => {
 };
 
 const mapStateToProps = (state) => ({
-  sortMovie: state.sort
+  sortMovie: state.filterSort.sortBy
 });
 
 const mapDispatchToProps = (dispatch) => ({

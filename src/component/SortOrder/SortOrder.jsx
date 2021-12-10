@@ -18,7 +18,7 @@ const SortOrder = ({sortOrderMovie, setSortOrderMovie, fetchMovies}) => {
 }
 
 const mapStateToProps = (state) => ({
-  sortOrderMovie: state.sortOrder
+  sortOrderMovie: state.filterSort.sortOrder
 });
 
 const mapDispatchToProps = (dispatch) => ({

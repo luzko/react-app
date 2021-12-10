@@ -11,7 +11,6 @@ import SortBy from '../Sort';
 import Count from '../Count';
 import Loader from "../Loader";
 import Footer from "../Footer";
-
 import {getMovies, moviesProcessing} from '../../store/actions';
 
 const App = ({isLoad, error, movies, processing, fetchMovies}) => {
@@ -42,7 +41,7 @@ const App = ({isLoad, error, movies, processing, fetchMovies}) => {
               : error
                   ? <div className={style.error}>{error.toString()}</div>
                   : <>
-                    <Count/>
+                    <Count count={movies.length}/>
                     <MovieList
                         movies={movies}
                         setMovieOverview={setMovieOverview}
@@ -61,9 +60,9 @@ const mapStateToProps = (state) => ({
   movies: state.movies
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  processing: () => dispatch(moviesProcessing()),
-  fetchMovies: () => dispatch(getMovies())
-});
+const mapDispatchToProps = {
+  processing: moviesProcessing,
+  fetchMovies: getMovies
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

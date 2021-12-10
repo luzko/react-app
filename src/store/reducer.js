@@ -4,9 +4,11 @@ const initial = {
   processing: false,
   error: null,
   movies: [],
-  sort: 'release_date',
-  sortOrder: 'desc',
-  filter: '',
+  filterSort: {
+    sortBy: 'release_date',
+    sortOrder: 'desc',
+    filter: ''
+  }
 };
 
 const reducer = (state = initial, action) => {
@@ -34,21 +36,30 @@ const reducer = (state = initial, action) => {
         ...state,
         processing: true,
         error: null,
-        sort: action.payload.sortBy
-      }
+        filterSort: {
+          ...state.filterSort,
+          sortBy: action.payload.sortBy
+        }
+      };
     case actionType.SET_SORT_ORDER:
       return {
         ...state,
         processing: true,
         error: null,
-        sortOrder: action.payload.sortOrder
+        filterSort: {
+          ...state.filterSort,
+          sortOrder: action.payload.sortOrder
+        }
       }
     case actionType.SET_FILTER:
       return {
         ...state,
         processing: true,
         error: null,
-        filter: action.payload.filter
+        filterSort: {
+          ...state.filterSort,
+          filter: action.payload.filter
+        }
       }
     default:
       return state

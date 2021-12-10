@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import style from './FilterGenre.module.css';
 import Genre from "../Genre";
-import {filterGenres} from '../../data/data';
+import {filterGenres} from '../../constant/constant';
 import {getMovies, setFilter} from '../../store/actions';
 
 const FilterGenre = ({filterGenre, setFilterGenre, fetchMovies}) => {
@@ -33,7 +33,7 @@ const FilterGenre = ({filterGenre, setFilterGenre, fetchMovies}) => {
 };
 
 const mapStateToProps = (state) => ({
-  filterGenre: state.filter
+  filterGenre: state.filterSort.filter
 });
 
 const mapDispatchToProps = (dispatch) => ({

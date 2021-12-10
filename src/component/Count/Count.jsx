@@ -10,10 +10,4 @@ const Count = ({count}) => {
   );
 }
 
-const mapStateToProps = (state) => ({
-  count: state.movies.length
-});
-
-const mapDispatchToProps = (dispatch) => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Count);
+export default Count;
