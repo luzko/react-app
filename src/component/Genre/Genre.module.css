@@ -6,3 +6,7 @@
   background-color: #232323;
   border: 0;
 }
+
+.active {
+  color: #f65261;
+}

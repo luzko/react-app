@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import style from './AddMovie.module.css';
 import MovieModal from '../MovieModal/MovieModal';
 
-const AddMovie = (props) => {
+const AddMovie = () => {
   const [showModal, setShowModal] = useState(false);
   const closeModal = () => setShowModal(false);
   const openModal = () => setShowModal(true);
@@ -15,7 +15,6 @@ const AddMovie = (props) => {
         <MovieModal
             showModal={showModal}
             closeModal={closeModal}
-            addMovie={props.addMovie}
         />
       </>
   );

@@ -1,25 +1,42 @@
 import React from 'react';
-import SortOrder from '../SortOrder';
+import {connect} from 'react-redux';
 import style from './SortBy.module.css';
+import SortOrder from '../SortOrder';
+import {options} from '../../constant/constant';
+import {getMovies, setSort} from '../../store/actions';
 
-const SortBy = (props) => {
+const SortBy = ({sortMovie, setSortMovie, fetchMovies}) => {
+  const selectionChange = (value) => {
+    setSortMovie(value);
+    fetchMovies();
+  };
+
   return (
       <div>
         <span className={style.label}>SORT BY:</span>
         <select
-            defaultValue={props.sortBy.field}
+            defaultValue={sortMovie}
             className={style.dropdown}
-            onChange={(e) => props.changeSort(e.target.value)}
+            onChange={(e) => selectionChange(e.target.value)}
         >
-          {props.options.map((option) => (
-              <option key={props.options.indexOf(option)} value={option}>
-                {option}
+          {options.map((option) => (
+              <option key={option.id} value={option.value}>
+                {option.label}
               </option>
           ))}
         </select>
-        <SortOrder sortBy={props.sortBy} changeOrder={props.changeOrder}/>
+        <SortOrder/>
       </div>
   );
 };
 
-export default SortBy;
+const mapStateToProps = (state) => ({
+  sortMovie: state.filterSort.sortBy
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setSortMovie: (sortMovie) => dispatch(setSort(sortMovie)),
+  fetchMovies: () => dispatch(getMovies())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SortBy);

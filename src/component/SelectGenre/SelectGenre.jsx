@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import style from "./SelectGenre.module.css";
-import {genres} from '../../data/data';
+import {genres} from '../../constant/constant';
 
 const SelectGenre = (props) => {
   const [show, setShow] = useState(false)

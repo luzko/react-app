@@ -9,8 +9,6 @@ const MovieList = (props) => {
             <MovieCard
                 key={movie.id}
                 movie={movie}
-                deleteMovie={props.deleteMovie}
-                updateMovie={props.updateMovie}
                 setMovieOverview={props.setMovieOverview}
             />
         )}
