@@ -1,14 +1,26 @@
 import actionType from './actionType';
-import axios from 'axios';
-import {getApi} from '../service/apiService';
+import {deleteApi, getApi, postApi, updateApi} from '../service/apiService';
 
-/*
-export const createMovie = () => () {}
+export const createMovie = movie =>
+    dispatch =>
+        postApi(movie)
+        .then(() => {
+          dispatch(getMovies())
+        });
 
-export const deleteMovie = () => () {}
+export const deleteMovie = id =>
+    dispatch =>
+        deleteApi(id)
+        .then(() => {
+          dispatch(getMovies())
+        });
 
-export const updateMovie = () => () {}
-*/
+export const updateMovie = movie =>
+    dispatch =>
+        updateApi(movie)
+        .then(() => {
+          dispatch(getMovies())
+        });
 
 export const getMovies = () => (dispatch, getState) => {
   const {filterSort} = getState()

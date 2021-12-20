@@ -1,65 +1,101 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import style from './MovieModal.module.css';
 import Modal from '../Modal';
 import SelectGenre from '../SelectGenre';
+import {useFormik} from 'formik';
 
 const MovieModal = (props) => {
   const isEdit = props.movie ? true : false
-  const [title, setTitle] = useState(isEdit ? props.movie.title : '')
-  const [tagline, setTagline] = useState(isEdit ? props.movie.tagline : '')
-  const [release, setRelease] = useState(isEdit ? props.movie.release_date : '')
-  const [poster, setPoster] = useState(isEdit ? props.movie.poster_path : '')
-  const [rating, setRating] = useState(isEdit ? props.movie.vote_average : '')
-  const [genre, setGenre] = useState(isEdit ? props.movie.genres : [])
-  const [runtime, setRuntime] = useState(isEdit ? props.movie.runtime : '')
-  const [overview, setOverview] = useState(isEdit ? props.movie.overview : '')
 
-  useEffect(() => {
-  }, [])
-
-  const resetField = () => {
-    setTitle(isEdit ? title : '')
-    setTagline(isEdit ? tagline : '')
-    setRelease(isEdit ? release : '')
-    setPoster(isEdit ? poster : '')
-    setRating(isEdit ? rating : '')
-    setGenre(isEdit ? genre : [])
-    setRuntime(isEdit ? runtime : '')
-    setOverview(isEdit ? overview : '')
-  }
-
-  const reset = () => {
-    setTitle(isEdit ? props.movie.title : '')
-    setTagline(isEdit ? props.movie.tagline : '')
-    setRelease(isEdit ? props.movie.release_date : '')
-    setPoster(isEdit ? props.movie.poster_path : '')
-    setRating(isEdit ? props.movie.vote_average : '')
-    setGenre(isEdit ? props.movie.genres : [])
-    setRuntime(isEdit ? props.movie.runtime : '')
-    setOverview(isEdit ? props.movie.overview : '')
-  }
-
-  const submit = () => {
-    const movie = {
-      id: isEdit ? props.movie.id : Date.now(),
-      tagline,
-      title,
-      release,
-      poster,
-      rating,
-      genre,
-      runtime,
-      overview
+  const validate = (values) => {
+    const errors = {};
+    if (!values.title) {
+      errors.title = 'Please enter a title';
     }
-    // isEdit ? props.updateMovie(movie) : props.addMovie(movie)
-    props.closeModal()
-    resetField()
-  }
+    if (!values.tagline) {
+      errors.tagline = 'Please enter a tagline';
+    }
+    if (!values.release) {
+      errors.release = 'Please select a reelase date';
+    }
+    if (!values.poster) {
+      errors.poster = 'Please enter a poster url';
+    } else if (!/^(https?):\/\/[^\s$.?#].[^\s]*$/i.test(values.poster)) {
+      errors.poster =
+          'Not a valid http link, please enter a valid http link';
+    }
+    if (!values.rating) {
+      errors.rating = 'Please enter a rating';
+    } else if (!/\d+$/i.test(values.rating)) {
+      errors.rating = 'Please enter a number';
+    }
+    if (!values.genre.length === 0) {
+      errors.genres = 'Please select at least one genre';
+    }
+    if (!values.runtime) {
+      errors.runtime = 'Please enter a runtime';
+    } else if (!/\d+$/i.test(values.runtime)) {
+      errors.runtime = 'Please enter a number';
+    }
+    if (!values.overview) {
+      errors.overview = 'Please enter an overview';
+    }
+    return errors;
+  };
 
-  const changeGenre = (event) => {
-    setGenre(genre?.indexOf(event.target?.value) > -1
-        ? genre.filter(genre => genre !== event.target?.value)
-        : [...genre, event.target?.value])
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      title: isEdit ? props.movie.title : '',
+      tagline: isEdit ? props.movie.tagline : '',
+      release: isEdit ? props.movie.release_date : '',
+      poster: isEdit ? props.movie.poster_path : '',
+      rating: isEdit ? props.movie.vote_average : '',
+      genre: isEdit ? props.movie.genres : [],
+      runtime: isEdit ? props.movie.runtime : '',
+      overview: isEdit ? props.movie.overview : ''
+    },
+    validate,
+    onSubmit: (values) => {
+      if (isEdit) {
+        const updatedMovie = {
+          id: props.movie.id,
+          title: values.title,
+          tagline: values.tagline,
+          release_date: values.release,
+          poster_path: values.poster,
+          vote_average: Number(values.rating),
+          genres: values.genre,
+          runtime: Number(values.runtime),
+          overview: values.overview
+        };
+        props.updateMovie(updatedMovie)
+      } else {
+        const newMovie = {
+          title: values.title,
+          tagline: values.tagline,
+          release_date: values.release,
+          poster_path: values.poster,
+          vote_average: Number(values.rating),
+          genres: values.genre,
+          runtime: Number(values.runtime),
+          overview: values.overview
+        };
+        props.createMovie(newMovie)
+      }
+      close();
+    }
+  });
+
+  const close = () => {
+    props.closeModal()
+    formik.resetForm();
+  };
+
+  const addRedBorder = (field) => {
+    const rootClasses = [style.input]
+    rootClasses.push(formik.touched[field] && formik.errors[field] ? style.redBorder : '')
+    return rootClasses;
   }
 
   return (
@@ -67,87 +103,137 @@ const MovieModal = (props) => {
              visible={props.showModal}
              setVisible={() => props.closeModal()}
       >
-        <div className={style.field}>
-          <label>TITLE</label>
-          <input
-              className={style.input}
-              type='text'
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div className={style.field}>
-          <label>TAGLINE</label>
-          <input
-              className={style.input}
-              type='text'
-              value={tagline}
-              onChange={(e) => setTagline(e.target.value)}
-          />
-        </div>
-        <div className={style.field}>
-          <label>RELEASE DATE</label>
-          <input
-              className={style.input}
-              type='date'
-              value={release}
-              onChange={(e) => setRelease(e.target.value)}
-          />
-        </div>
-        <div className={style.field}>
-          <label>POSTER</label>
-          <input
-              className={style.input}
-              type='text'
-              value={poster}
-              onChange={(e) => setPoster(e.target.value)}
-          />
-        </div>
-        <div className={style.field}>
-          <label>RATING</label>
-          <input
-              className={style.input}
-              type='text'
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
-          />
-        </div>
-        <div className={style.field}>
-          <label>GENRES</label>
-          <input
-              className={style.input}
-              type='text'
-              value={genre}
-              disabled={true}
-          />
-          <SelectGenre genre={genre} changeGenre={changeGenre}/>
-        </div>
-        <div className={style.field}>
-          <label>RUNTIME</label>
-          <input
-              className={style.input}
-              type='text'
-              value={runtime}
-              onChange={(e) => setRuntime(e.target.value)}
-          />
-        </div>
-        <div className={style.field}>
-          <label>OVERVIEW</label>
-          <textarea
-              className={style.input}
-              type='text'
-              value={overview}
-              onChange={(e) => setOverview(e.target.value)}
-          />
-        </div>
-        <div className={style.buttons}>
-          <button className={style.button} onClick={reset}>
-            RESET
-          </button>
-          <button className={style.button} onClick={submit}>
-            SUBMIT
-          </button>
-        </div>
+        <form onSubmit={formik.handleSubmit}>
+          <div className={style.field}>
+            <label>TITLE</label>
+            <input
+                type='text'
+                className={addRedBorder('title').join(' ')}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.title}
+                id='title'
+                name='title'
+            />
+            {formik.touched.title && formik.errors.title ? (
+                <span className={style.error}>{formik.errors.title}</span>
+            ) : null}
+          </div>
+          <div className={style.field}>
+            <label>TAGLINE</label>
+            <input
+                type='text'
+                className={addRedBorder('tagline').join(' ')}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.tagline}
+                id='tagline'
+                name='tagline'
+            />
+            {formik.touched.tagline && formik.errors.tagline ? (
+                <span className={style.error}>{formik.errors.tagline}</span>
+            ) : null}
+          </div>
+          <div className={style.field}>
+            <label>RELEASE DATE</label>
+            <input
+                type='date'
+                className={addRedBorder('release').join(' ')}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.release}
+                id='release'
+                name='release'
+            />
+            {formik.touched.release && formik.errors.release ? (
+                <span className={style.error}>{formik.errors.release}</span>
+            ) : null}
+          </div>
+          <div className={style.field}>
+            <label>POSTER</label>
+            <input
+                type='text'
+                className={addRedBorder('poster').join(' ')}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.poster}
+                id='poster'
+                name='poster'
+            />
+            {formik.touched.poster && formik.errors.poster ? (
+                <span className={style.error}>{formik.errors.poster}</span>
+            ) : null}
+          </div>
+          <div className={style.field}>
+            <label>RATING</label>
+            <input
+                type='text'
+                className={addRedBorder('rating').join(' ')}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.rating}
+                id='rating'
+                name='rating'
+            />
+            {formik.touched.rating && formik.errors.rating ? (
+                <span className={style.error}>{formik.errors.rating}</span>
+            ) : null}
+          </div>
+          <div className={style.field}>
+            <label>GENRES</label>
+            <input
+                type='text'
+                className={addRedBorder('genre').join(' ')}
+                onBlur={formik.handleBlur}
+                value={formik.values.genre}
+                disabled={true}
+                id='genre'
+                name='genre'
+            />
+            {formik.touched.genre && formik.errors.genre ? (
+                <span className={style.error}>{formik.errors.genre}</span>
+            ) : null}
+            <SelectGenre genre={formik.values.genre} changeGenre={formik.handleChange}/>
+          </div>
+          <div className={style.field}>
+            <label>RUNTIME</label>
+            <input
+                type='text'
+                className={addRedBorder('runtime').join(' ')}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.runtime}
+                id='runtime'
+                name='runtime'
+            />
+            {formik.touched.runtime && formik.errors.runtime ? (
+                <span className={style.error}>{formik.errors.runtime}</span>
+            ) : null}
+          </div>
+          <div className={style.field}>
+            <label>OVERVIEW</label>
+            <textarea
+                type='text'
+                className={addRedBorder('overview').join(' ')}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.overview}
+                id='overview'
+                name='overview'
+            />
+            {formik.touched.overview && formik.errors.overview ? (
+                <span className={style.error}>{formik.errors.overview}</span>
+            ) : null}
+          </div>
+          <div className={style.buttons}>
+            <button className={style.button} onClick={formik.handleReset}>
+              RESET
+            </button>
+            <button className={style.button} type='submit'>
+              SUBMIT
+            </button>
+          </div>
+        </form>
       </Modal>
   )
 };
