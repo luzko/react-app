@@ -4,23 +4,32 @@ import {deleteApi, getApi, postApi, updateApi} from '../service/apiService';
 export const createMovie = movie =>
     dispatch =>
         postApi(movie)
-        .then(() => {
-          dispatch(getMovies())
-        });
+        .then((data) => {
+          dispatch(addMovieAction(data))
+        })
+        .catch(error => {
+          dispatch(errorProcessing(error));
+        })
 
 export const deleteMovie = id =>
     dispatch =>
         deleteApi(id)
         .then(() => {
-          dispatch(getMovies())
-        });
+          dispatch(deleteMovieAction(id))
+        })
+        .catch(error => {
+          dispatch(errorProcessing(error));
+        })
 
 export const updateMovie = movie =>
     dispatch =>
         updateApi(movie)
-        .then(() => {
-          dispatch(getMovies())
-        });
+        .then((data) => {
+          dispatch(updateMovieAction(data))
+        })
+        .catch(error => {
+          dispatch(errorProcessing(error));
+        })
 
 export const getMovies = () => (dispatch, getState) => {
   const {filterSort} = getState()
@@ -64,6 +73,21 @@ export const setFilter = filter => ({
     filter
   }
 });
+
+export const addMovieAction = movie => ({
+  type: actionType.ADD_MOVIE,
+  payload: movie.data
+})
+
+export const updateMovieAction = movie => ({
+  type: actionType.UPDATE_MOVIE,
+  payload: movie.data
+})
+
+export const deleteMovieAction = id => ({
+  type: actionType.DELETE_MOVIE,
+  payload: id
+})
 
 const setMovies = movies => ({
   type: actionType.SET_MOVIES,
