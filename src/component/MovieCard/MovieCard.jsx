@@ -50,11 +50,13 @@ const MovieCard = (props) => {
         <DeleteMovie
             showModal={showDeleteModal}
             closeModal={closeDeleteModal}
+            deleteMovie={props.deleteMovie}
             movieId={props.movie.id}
         />
         <MovieModal
             showModal={showEditModal}
             closeModal={closeEditModal}
+            updateMovie={props.updateMovie}
             movie={props.movie}
         />
       </>

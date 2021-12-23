@@ -61,6 +61,27 @@ const reducer = (state = initial, action) => {
           filter: action.payload.filter
         }
       }
+    case actionType.ADD_MOVIE:
+      return {
+        ...state,
+        processing: false,
+        error: null,
+        movies: [...state.movies, action.payload]
+      }
+    case actionType.UPDATE_MOVIE:
+      return {
+        ...state,
+        processing: false,
+        error: null,
+        movies: state.movies.map(currentMovie => currentMovie.id === action.payload.id ? action.payload : currentMovie)
+      }
+    case actionType.DELETE_MOVIE:
+      return {
+        ...state,
+        processing: false,
+        error: null,
+        movies: state.movies.filter(movie => movie.id !== action.payload)
+      }
     default:
       return state
   }

@@ -20,7 +20,9 @@ const SelectGenre = (props) => {
                       type="checkbox"
                       checked={props.genre?.indexOf(genre.title) > -1}
                       value={genre.title}
-                      onChange={props.changeGenre}/>
+                      onChange={props.changeGenre}
+                      name="genre"
+                  />
                   <label>{genre.title}</label>
                 </li>
             )

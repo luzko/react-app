@@ -1,14 +1,35 @@
 import actionType from './actionType';
-import axios from 'axios';
-import {getApi} from '../service/apiService';
+import {deleteApi, getApi, postApi, updateApi} from '../service/apiService';
 
-/*
-export const createMovie = () => () {}
+export const createMovie = movie =>
+    dispatch =>
+        postApi(movie)
+        .then((data) => {
+          dispatch(addMovieAction(data))
+        })
+        .catch(error => {
+          dispatch(errorProcessing(error));
+        })
 
-export const deleteMovie = () => () {}
+export const deleteMovie = id =>
+    dispatch =>
+        deleteApi(id)
+        .then(() => {
+          dispatch(deleteMovieAction(id))
+        })
+        .catch(error => {
+          dispatch(errorProcessing(error));
+        })
 
-export const updateMovie = () => () {}
-*/
+export const updateMovie = movie =>
+    dispatch =>
+        updateApi(movie)
+        .then((data) => {
+          dispatch(updateMovieAction(data))
+        })
+        .catch(error => {
+          dispatch(errorProcessing(error));
+        })
 
 export const getMovies = () => (dispatch, getState) => {
   const {filterSort} = getState()
@@ -52,6 +73,21 @@ export const setFilter = filter => ({
     filter
   }
 });
+
+export const addMovieAction = movie => ({
+  type: actionType.ADD_MOVIE,
+  payload: movie.data
+})
+
+export const updateMovieAction = movie => ({
+  type: actionType.UPDATE_MOVIE,
+  payload: movie.data
+})
+
+export const deleteMovieAction = id => ({
+  type: actionType.DELETE_MOVIE,
+  payload: id
+})
 
 const setMovies = movies => ({
   type: actionType.SET_MOVIES,

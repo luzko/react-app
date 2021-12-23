@@ -11,9 +11,24 @@ import SortBy from '../Sort';
 import Count from '../Count';
 import Loader from "../Loader";
 import Footer from "../Footer";
-import {getMovies, moviesProcessing} from '../../store/actions';
+import {
+  createMovie,
+  deleteMovie,
+  getMovies,
+  moviesProcessing,
+  updateMovie
+} from '../../store/actions';
 
-const App = ({isLoad, error, movies, processing, fetchMovies}) => {
+const App = ({
+  isLoad,
+  error,
+  movies,
+  processing,
+  fetchMovies,
+  deleteMovie,
+  createMovie,
+  updateMovie
+}) => {
   const [movieOverview, setMovieOverview] = useToggleOverview()
 
   useEffect(() => {
@@ -29,7 +44,7 @@ const App = ({isLoad, error, movies, processing, fetchMovies}) => {
                 setMovieOverview={setMovieOverview}
             />
         ) : (
-            <Header/>
+            <Header createMovie={createMovie}/>
         )}
         <main className={style.main}>
           <div className={style.filterSort}>
@@ -44,6 +59,8 @@ const App = ({isLoad, error, movies, processing, fetchMovies}) => {
                     <Count count={movies.length}/>
                     <MovieList
                         movies={movies}
+                        deleteMovie={deleteMovie}
+                        updateMovie={updateMovie}
                         setMovieOverview={setMovieOverview}
                     />
                   </>
@@ -62,7 +79,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   processing: moviesProcessing,
-  fetchMovies: getMovies
+  fetchMovies: getMovies,
+  deleteMovie,
+  createMovie,
+  updateMovie
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

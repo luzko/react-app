@@ -36,3 +36,12 @@ textarea {
   min-height: 40px;
   resize: vertical;
 }
+
+.error {
+  color: #f80202;
+  font-size: 14px;
+}
+
+.redBorder {
+  border: solid 1px #f80202 !important;
+}
