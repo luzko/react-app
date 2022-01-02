@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import style from './MovieCard.module.css';
 import PropTypes from "prop-types";
 import MovieModal from '../MovieModal';
@@ -20,12 +21,13 @@ const MovieCard = (props) => {
       <>
         <div className={style.card}>
           <div className={style.container}>
-            <img
-                className={style.image}
-                src={props.movie.poster_path}
-                alt={props.movie.title}
-                onClick={() => props.setMovieOverview(props.movie)}
-            />
+            <Link to={`/film/${props.movie.id}`}>
+              <img
+                  className={style.image}
+                  src={props.movie.poster_path}
+                  alt={props.movie.title}
+              />
+            </Link>
             <button
                 className={style.button}
                 onClick={openOption}

@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './Search.module.css';
 
-const Search = () => {
+const Search = ({searchValue, setSearchValue, handleSearch, keyEnter}) => {
   return (
       <>
         <div className={style.headerText}>FIND YOUR MOVIE</div>
@@ -10,8 +10,13 @@ const Search = () => {
               type="text"
               placeholder="What do you want to watch?"
               className={style.searchInput}
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onKeyPress={keyEnter}
           />
-          <button className={style.searchButton}>SEARCH</button>
+          <button className={style.searchButton} onClick={handleSearch}>
+            SEARCH
+          </button>
         </div>
       </>
   );

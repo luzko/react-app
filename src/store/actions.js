@@ -1,5 +1,11 @@
 import actionType from './actionType';
-import {deleteApi, getApi, postApi, updateApi} from '../service/apiService';
+import {
+  deleteApi,
+  getApi,
+  getMovieById,
+  postApi,
+  updateApi
+} from '../service/apiService';
 
 export const createMovie = movie =>
     dispatch =>
@@ -30,6 +36,17 @@ export const updateMovie = movie =>
         .catch(error => {
           dispatch(errorProcessing(error));
         })
+
+export const findMovieById = id =>
+    dispatch => {
+      getMovieById(id)
+      .then(movie => {
+        dispatch(setSelectedMovie(movie))
+      })
+      .catch(error => {
+        dispatch(errorProcessing(error));
+      })
+    }
 
 export const getMovies = () => (dispatch, getState) => {
   const {filterSort} = getState()
@@ -73,6 +90,18 @@ export const setFilter = filter => ({
     filter
   }
 });
+
+export const setSearch = search => ({
+  type: actionType.SET_SEARCH,
+  payload: {
+    search
+  }
+});
+
+export const setSelectedMovie = movie => ({
+  type: actionType.SET_SELECTED_MOVIE,
+  payload: movie
+})
 
 export const addMovieAction = movie => ({
   type: actionType.ADD_MOVIE,

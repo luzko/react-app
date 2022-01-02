@@ -1,0 +1,33 @@
+.pageNotFound {
+  min-height: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #232323;
+}
+
+.text {
+  font-size: 32px;
+  color: #ffffff;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+.notFoundImage {
+  height: 300px;
+}
+
+.goBack {
+  width: 200px;
+  height: 50px;
+  border-radius: 5px;
+  border: solid 1px #f65261;
+  font-size: 18px;
+  color: #f65261;
+  background-color: #232323;
+  margin: 10px;
+}
+
+.logo {
+  width: 110px;
+}

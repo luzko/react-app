@@ -1,21 +1,18 @@
-import React, {useEffect} from "react";
-import {connect} from 'react-redux';
-import style from './App.module.css';
-import {useToggleOverview} from "../../hook/useToggleOverview";
+import React from 'react';
+import {Route, Switch} from 'react-router-dom';
+import {connect} from "react-redux";
 import ErrorBoundary from "../ErrorBoundary";
-import Header from "../Header";
-import MovieOverview from "../MovieOverview";
-import MovieList from '../MovieList';
-import FilterGenre from '../FilterGenre';
-import SortBy from '../Sort';
-import Count from '../Count';
-import Loader from "../Loader";
 import Footer from "../Footer";
+import SearchView from '../SearchView';
+import OverviewView from '../OverviewView';
+import PageNotFound from '../PageNotFound';
 import {
   createMovie,
   deleteMovie,
+  findMovieById,
   getMovies,
   moviesProcessing,
+  setSearch,
   updateMovie
 } from '../../store/actions';
 
@@ -23,49 +20,48 @@ const App = ({
   isLoad,
   error,
   movies,
+  movie,
   processing,
   fetchMovies,
   deleteMovie,
   createMovie,
-  updateMovie
+  findMovieById,
+  updateMovie,
+  setSearch
 }) => {
-  const [movieOverview, setMovieOverview] = useToggleOverview()
-
-  useEffect(() => {
-    processing();
-    fetchMovies();
-  }, []);
-
   return (
       <ErrorBoundary>
-        {movieOverview ? (
-            <MovieOverview
-                movie={movieOverview}
-                setMovieOverview={setMovieOverview}
+        <Switch>
+          <Route path={['/', '/search/', '/search/:title']} exact>
+            <SearchView
+                setSearch={setSearch}
+                processing={processing}
+                fetchMovies={fetchMovies}
+                createMovie={createMovie}
+                isLoad={isLoad}
+                error={error}
+                movies={movies}
+                deleteMovie={deleteMovie}
+                updateMovie={updateMovie}
             />
-        ) : (
-            <Header createMovie={createMovie}/>
-        )}
-        <main className={style.main}>
-          <div className={style.filterSort}>
-            <FilterGenre/>
-            <SortBy/>
-          </div>
-          {isLoad
-              ? <Loader/>
-              : error
-                  ? <div className={style.error}>{error.toString()}</div>
-                  : <>
-                    <Count count={movies.length}/>
-                    <MovieList
-                        movies={movies}
-                        deleteMovie={deleteMovie}
-                        updateMovie={updateMovie}
-                        setMovieOverview={setMovieOverview}
-                    />
-                  </>
-          }
-        </main>
+          </Route>
+          <Route path={'/film/:id'} exact>
+            <OverviewView
+                movie={movie}
+                findMovieById={findMovieById}
+                processing={processing}
+                fetchMovies={fetchMovies}
+                isLoad={isLoad}
+                error={error}
+                movies={movies}
+                deleteMovie={deleteMovie}
+                updateMovie={updateMovie}
+            />
+          </Route>
+          <Route path='*'>
+            <PageNotFound/>
+          </Route>
+        </Switch>
         <Footer/>
       </ErrorBoundary>
   );
@@ -74,15 +70,18 @@ const App = ({
 const mapStateToProps = (state) => ({
   isLoad: state.processing,
   error: state.error,
-  movies: state.movies
+  movies: state.movies,
+  movie: state.movie
 });
 
-const mapDispatchToProps = {
-  processing: moviesProcessing,
-  fetchMovies: getMovies,
-  deleteMovie,
-  createMovie,
-  updateMovie
-};
+const mapDispatchToProps = (dispatch) => ({
+  processing: () => dispatch(moviesProcessing()),
+  fetchMovies: () => dispatch(getMovies()),
+  findMovieById: (id) => dispatch(findMovieById(id)),
+  deleteMovie: () => dispatch(deleteMovie()),
+  createMovie: () => dispatch(createMovie()),
+  updateMovie: () => dispatch(updateMovie()),
+  setSearch: (search) => dispatch(setSearch(search))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

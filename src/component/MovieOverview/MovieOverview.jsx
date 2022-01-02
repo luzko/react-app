@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import style from './MovieOverview.module.css';
 import PropTypes from 'prop-types';
 import logo from '../../../public/logo.svg';
@@ -9,10 +10,9 @@ const MovieOverview = (props) => {
         <div className={style.overview}>
           <div className={style.logoAndButton}>
             <img src={logo} alt='logo' className={style.logo}/>
-            <i className={style.icon}
-               onClick={() => props.setMovieOverview(null)}>
-              ✕
-            </i>
+            <Link to='/'>
+              <i className={style.icon}>✕</i>
+            </Link>
           </div>
           <div className={style.movieDetails}>
             <div className={style.card}>

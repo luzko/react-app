@@ -9,7 +9,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     chunkFilename: '[name].bundle.js',
-    filename: '[name].js'
+    filename: '[name].js',
+    publicPath: '/'
   },
   devtool: false,
   devServer: {
