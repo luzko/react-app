@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {connect} from "react-redux";
 import ErrorBoundary from "../ErrorBoundary";
 import Footer from "../Footer";
@@ -31,21 +31,22 @@ const App = ({
 }) => {
   return (
       <ErrorBoundary>
-        <Switch>
-          <Route path={['/', '/search/', '/search/:title']} exact>
-            <SearchView
-                setSearch={setSearch}
-                processing={processing}
-                fetchMovies={fetchMovies}
-                createMovie={createMovie}
-                isLoad={isLoad}
-                error={error}
-                movies={movies}
-                deleteMovie={deleteMovie}
-                updateMovie={updateMovie}
-            />
-          </Route>
-          <Route path={'/film/:id'} exact>
+        <Routes>
+          {['/', '/search/', '/search/:title'].map(path =>
+              <Route path={path} element={
+                <SearchView
+                    setSearch={setSearch}
+                    processing={processing}
+                    fetchMovies={fetchMovies}
+                    createMovie={createMovie}
+                    isLoad={isLoad}
+                    error={error}
+                    movies={movies}
+                    deleteMovie={deleteMovie}
+                    updateMovie={updateMovie}
+                />
+              }/>)}
+          <Route path={'/movie/:id'} element={
             <OverviewView
                 movie={movie}
                 findMovieById={findMovieById}
@@ -57,11 +58,9 @@ const App = ({
                 deleteMovie={deleteMovie}
                 updateMovie={updateMovie}
             />
-          </Route>
-          <Route path='*'>
-            <PageNotFound/>
-          </Route>
-        </Switch>
+          }/>
+          <Route path='*' element={<PageNotFound/>}/>
+        </Routes>
         <Footer/>
       </ErrorBoundary>
   );

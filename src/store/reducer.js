@@ -6,7 +6,7 @@ const initial = {
   movie: null,
   movies: [],
   filterSort: {
-    sortBy: 'release_date',
+    sortBy: 'vote_average',
     sortOrder: 'desc',
     filter: '',
     search: '',

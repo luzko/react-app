@@ -21,7 +21,7 @@ const MovieCard = (props) => {
       <>
         <div className={style.card}>
           <div className={style.container}>
-            <Link to={`/film/${props.movie.id}`}>
+            <Link to={`/movie/${props.movie.id}`}>
               <img
                   className={style.image}
                   src={props.movie.poster_path}

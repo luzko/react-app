@@ -3,23 +3,21 @@ import style from './Header.module.css';
 import Search from "../Search";
 import AddMovie from "../AddMovie";
 import logo from '../../../public/logo.svg';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 const Header = (props) => {
+  const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState(props.title ? props.title : '');
 
   useEffect(() => {
-    history.push('/search/')
+    handleSearch();
   }, []);
-
-  const history = useHistory();
-  const [searchValue, setSearchValue] = useState('');
 
   const handleSearch = () => {
     props.setSearch(searchValue)
     props.processing();
     props.fetchMovies();
-
-    history.push('/search/' + searchValue)
+    navigate('/search/' + searchValue)
   };
 
   const keyEnter = (e) => {

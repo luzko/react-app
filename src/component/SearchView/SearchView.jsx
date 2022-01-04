@@ -19,6 +19,7 @@ const SearchView = (props) => {
   return (
       <>
         <Header
+            title={title}
             createMovie={props.createMovie}
             setSearch={props.setSearch}
             processing={props.processing}
