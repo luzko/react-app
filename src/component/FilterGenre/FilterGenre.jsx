@@ -7,9 +7,9 @@ import {getMovies, setFilter} from '../../store/actions';
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 
 const FilterGenre = ({filterGenre, setFilterGenre, fetchMovies}) => {
-  const navigate = useNavigate();
+  let navigate = useNavigate();
   let [searchParams] = useSearchParams();
-  const {searchQuery, id} = useParams();
+  let {searchQuery} = useParams();
 
   const changeGenre = (genre) => {
     searchParams.set("genre", genre);

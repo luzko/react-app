@@ -6,9 +6,9 @@ import logo from '../../../public/logo.svg';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
 const Header = (props) => {
-  const navigate = useNavigate();
+  let navigate = useNavigate();
   let [searchParams] = useSearchParams();
-  const [searchValue, setSearchValue] = useState(props.searchQuery ? props.searchQuery : '');
+  let [searchValue, setSearchValue] = useState(props.searchQuery ? props.searchQuery : '');
 
   const handleSearch = () => {
     props.setSearch(searchValue)
