@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import style from './MovieCard.module.css';
 import PropTypes from "prop-types";
 import MovieModal from '../MovieModal';
@@ -17,17 +17,25 @@ const MovieCard = (props) => {
   const closeOption = () => setShowOption(false)
   const openOption = () => setShowOption(true)
 
+  const navigate = useNavigate();
+  let [searchParams] = useSearchParams();
+  const {searchQuery} = useParams();
+
+  const changeMovie = (movieId) => {
+    searchParams.set('movie', movieId);
+    navigate(`/search${searchQuery ? '/' + searchQuery : '/'}?${searchParams.toString()}`)
+  }
+
   return (
       <>
         <div className={style.card}>
           <div className={style.container}>
-            <Link to={`/movie/${props.movie.id}`}>
-              <img
-                  className={style.image}
-                  src={props.movie.poster_path}
-                  alt={props.movie.title}
-              />
-            </Link>
+            <img
+                className={style.image}
+                src={props.movie.poster_path}
+                alt={props.movie.title}
+                onClick={() => changeMovie(props.movie.id)}
+            />
             <button
                 className={style.button}
                 onClick={openOption}

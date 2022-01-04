@@ -1,11 +1,25 @@
-import React from 'react';
+import React, {useEffect} from "react";
 import {connect} from 'react-redux';
 import style from './FilterGenre.module.css';
 import Genre from "../Genre";
 import {filterGenres} from '../../constant/constant';
 import {getMovies, setFilter} from '../../store/actions';
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 
 const FilterGenre = ({filterGenre, setFilterGenre, fetchMovies}) => {
+  const navigate = useNavigate();
+  let [searchParams] = useSearchParams();
+  const {searchQuery, id} = useParams();
+
+  const changeGenre = (genre) => {
+    searchParams.set("genre", genre);
+    navigate(`/search${searchQuery ? '/' + searchQuery : '/'}?${searchParams.toString()}`)
+  }
+
+  useEffect(() => {
+    changeGenre(filterGenre === '' ? 'all' : filterGenre)
+  }, [filterGenre])
+
   const filterChange = (value) => {
     setFilterGenre(value);
     fetchMovies();

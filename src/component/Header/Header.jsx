@@ -3,21 +3,18 @@ import style from './Header.module.css';
 import Search from "../Search";
 import AddMovie from "../AddMovie";
 import logo from '../../../public/logo.svg';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 
 const Header = (props) => {
   const navigate = useNavigate();
-  const [searchValue, setSearchValue] = useState(props.title ? props.title : '');
-
-  useEffect(() => {
-    handleSearch();
-  }, []);
+  let [searchParams] = useSearchParams();
+  const [searchValue, setSearchValue] = useState(props.searchQuery ? props.searchQuery : '');
 
   const handleSearch = () => {
     props.setSearch(searchValue)
     props.processing();
     props.fetchMovies();
-    navigate('/search/' + searchValue)
+    navigate(`/search${searchValue ? '/' + searchValue : '/'}?${searchParams.toString()}`)
   };
 
   const keyEnter = (e) => {

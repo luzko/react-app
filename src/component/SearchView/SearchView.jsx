@@ -1,30 +1,39 @@
 import React, {useEffect} from "react";
 import Header from "../Header";
+import MovieOverview from "../MovieOverview";
 import Main from "../Main";
-
-import {useLocation, useParams} from 'react-router-dom';
+import {useParams, useSearchParams} from 'react-router-dom';
 
 const SearchView = (props) => {
-  let location = useLocation();
-  let {title} = useParams();
+  let [searchParams] = useSearchParams();
+  let {searchQuery} = useParams();
+  let movieId = searchParams.get('movie');
 
   useEffect(() => {
-    if (location.pathname !== '/') {
-      props.setSearch(title)
+    if (movieId) {
+      props.findMovieById(movieId)
     }
+  }, [movieId])
+
+  useEffect(() => {
+    props.setSearch(searchQuery)
     props.processing();
     props.fetchMovies();
   }, []);
 
   return (
       <>
-        <Header
-            title={title}
-            createMovie={props.createMovie}
-            setSearch={props.setSearch}
-            processing={props.processing}
-            fetchMovies={props.fetchMovies}
-        />
+        {props.movie && movieId ? (
+            <MovieOverview movie={props.movie}/>
+        ) : (
+            <Header
+                searchQuery={searchQuery}
+                createMovie={props.createMovie}
+                setSearch={props.setSearch}
+                processing={props.processing}
+                fetchMovies={props.fetchMovies}
+            />
+        )}
         <Main
             isLoad={props.isLoad}
             error={props.error}

@@ -1,10 +1,9 @@
 import React from 'react';
-import {Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import {connect} from "react-redux";
 import ErrorBoundary from "../ErrorBoundary";
 import Footer from "../Footer";
 import SearchView from '../SearchView';
-import OverviewView from '../OverviewView';
 import PageNotFound from '../PageNotFound';
 import {
   createMovie,
@@ -32,9 +31,12 @@ const App = ({
   return (
       <ErrorBoundary>
         <Routes>
-          {['/', '/search/', '/search/:title'].map(path =>
+          <Route path="/" element={<Navigate to="search"/>}/>
+          {['/search/', '/search/:searchQuery/'].map(path =>
               <Route path={path} element={
                 <SearchView
+                    movie={movie}
+                    findMovieById={findMovieById}
                     setSearch={setSearch}
                     processing={processing}
                     fetchMovies={fetchMovies}
@@ -46,19 +48,6 @@ const App = ({
                     updateMovie={updateMovie}
                 />
               }/>)}
-          <Route path={'/movie/:id'} element={
-            <OverviewView
-                movie={movie}
-                findMovieById={findMovieById}
-                processing={processing}
-                fetchMovies={fetchMovies}
-                isLoad={isLoad}
-                error={error}
-                movies={movies}
-                deleteMovie={deleteMovie}
-                updateMovie={updateMovie}
-            />
-          }/>
           <Route path='*' element={<PageNotFound/>}/>
         </Routes>
         <Footer/>
@@ -77,9 +66,9 @@ const mapDispatchToProps = (dispatch) => ({
   processing: () => dispatch(moviesProcessing()),
   fetchMovies: () => dispatch(getMovies()),
   findMovieById: (id) => dispatch(findMovieById(id)),
-  deleteMovie: () => dispatch(deleteMovie()),
-  createMovie: () => dispatch(createMovie()),
-  updateMovie: () => dispatch(updateMovie()),
+  deleteMovie: (id) => dispatch(deleteMovie(id)),
+  createMovie: (movie) => dispatch(createMovie(movie)),
+  updateMovie: (movie) => dispatch(updateMovie(movie)),
   setSearch: (search) => dispatch(setSearch(search))
 })
 
