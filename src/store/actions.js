@@ -48,8 +48,14 @@ export const findMovieById = id =>
       })
     }
 
-export const getMovies = () => (dispatch, getState) => {
-  const {filterSort} = getState()
+export const getMoviesByParam = (genre, sortBy, sortOrder, searchQuery) => (dispatch) => {
+  let filterSort = {
+    sortBy: sortBy,
+    sortOrder: sortOrder,
+    filter: genre === 'all' ? '' : genre,
+    search: searchQuery,
+    searchBy: 'title'
+  }
   getApi(filterSort)
   .then(movies => {
     dispatch(setMovies(movies));
@@ -67,34 +73,6 @@ export const errorProcessing = error => ({
   type: actionType.PROCESSING_ERROR,
   payload: {
     error
-  }
-});
-
-export const setSort = sortBy => ({
-  type: actionType.SET_SORT,
-  payload: {
-    sortBy
-  }
-});
-
-export const setSortOrder = sortOrder => ({
-  type: actionType.SET_SORT_ORDER,
-  payload: {
-    sortOrder
-  }
-});
-
-export const setFilter = filter => ({
-  type: actionType.SET_FILTER,
-  payload: {
-    filter
-  }
-});
-
-export const setSearch = search => ({
-  type: actionType.SET_SEARCH,
-  payload: {
-    search
   }
 });
 
