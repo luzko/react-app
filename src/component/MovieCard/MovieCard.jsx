@@ -22,7 +22,7 @@ const MovieCard = (props) => {
   let [searchParams] = useSearchParams();
   const {searchQuery} = useParams();
 
-  const changeMovie = (movieId) => {
+  const changeMovieOverview = (movieId) => {
     searchParams.set('movie', movieId)
     navigateToSearch(navigate, searchQuery, searchParams)
   }
@@ -35,7 +35,7 @@ const MovieCard = (props) => {
                 className={style.image}
                 src={props.movie.poster_path}
                 alt={props.movie.title}
-                onClick={() => changeMovie(props.movie.id)}
+                onClick={() => changeMovieOverview(props.movie.id)}
             />
             <button
                 className={style.button}
