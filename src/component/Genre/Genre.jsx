@@ -2,15 +2,12 @@ import React from 'react';
 import style from './Genre.module.css';
 import PropTypes from "prop-types";
 
-const Genre = ({title, value, filterGenre, filterChange}) => {
-  const rootClasses = [style.option]
-  rootClasses.push(value === filterGenre ? style.active : '')
-
+const Genre = ({title, isActive, filterChange}) => {
   return (
-        <button className={rootClasses.join(' ')} onClick={() => filterChange(value)}>
-          {title.toUpperCase()}
-        </button>
-  );
+      <button className={`${style.option} ${(isActive ? style.active : "")}`} onClick={filterChange}>
+        {title}
+      </button>
+  )
 };
 
 Genre.propTypes = {

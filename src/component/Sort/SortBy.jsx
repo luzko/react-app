@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import style from './SortBy.module.css';
 import SortOrder from '../SortOrder';
 import {options, optionsValue} from '../../constant/constant';
+import {navigateToSearch} from "../../helper/routeHelper";
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 
 const SortBy = () => {
@@ -11,8 +12,8 @@ const SortBy = () => {
   let sortBy = searchParams.get('sortBy')
 
   const changeSortBy = (sortBy) => {
-    searchParams.set('sortBy', sortBy);
-    navigate(`/search${searchQuery ? '/' + searchQuery : '/'}?${searchParams.toString()}`)
+    searchParams.set('sortBy', sortBy)
+    navigateToSearch(navigate, searchQuery, searchParams)
   }
 
   useEffect(() => {

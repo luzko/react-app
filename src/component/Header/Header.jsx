@@ -3,6 +3,7 @@ import style from './Header.module.css';
 import Search from "../Search";
 import AddMovie from "../AddMovie";
 import logo from '../../../public/logo.svg';
+import {navigateToSearch} from "../../helper/routeHelper";
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 
 const Header = (props) => {
@@ -12,7 +13,7 @@ const Header = (props) => {
   let [search, setSearch] = useState(searchQuery ? searchQuery : "")
 
   let handleSearch = () => {
-    navigate(`/search${search ? '/' + search : '/'}?${searchParams.toString()}`)
+    navigateToSearch(navigate, search, searchParams)
   };
 
   const keyEnter = (e) => {

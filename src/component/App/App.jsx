@@ -9,7 +9,7 @@ const App = () => {
   return (
       <ErrorBoundary>
         <Routes>
-          <Route path="/" element={<Navigate to="search"/>}/>
+          <Route path="/" element={<Navigate to='/search/?sortBy=vote_average&sortOrder=desc'/>}/>
           {['/search/', '/search/:searchQuery/'].map(path => <Route path={path} element={<SearchView/>}/>)}
           <Route path='*' element={<PageNotFound/>}/>
         </Routes>

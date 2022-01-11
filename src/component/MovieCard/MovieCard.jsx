@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import MovieModal from '../MovieModal';
 import DeleteMovie from '../DeleteMovie';
 import MovieOptions from '../MovieOptions';
+import {navigateToSearch} from "../../helper/routeHelper";
 
 const MovieCard = (props) => {
   const [showEditModal, setShowEditModal] = useState(false);
@@ -22,8 +23,8 @@ const MovieCard = (props) => {
   const {searchQuery} = useParams();
 
   const changeMovie = (movieId) => {
-    searchParams.set('movie', movieId);
-    navigate(`/search${searchQuery ? '/' + searchQuery : '/'}?${searchParams.toString()}`)
+    searchParams.set('movie', movieId)
+    navigateToSearch(navigate, searchQuery, searchParams)
   }
 
   return (

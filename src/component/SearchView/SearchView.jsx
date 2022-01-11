@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import Header from "../Header";
 import MovieOverview from "../MovieOverview";
 import Main from "../Main";
-import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import {connect} from "react-redux";
 import {
   createMovie,
@@ -27,14 +27,9 @@ const SearchView = ({
   updateMovie,
   setSearch
 }) => {
-  let navigate = useNavigate();
   let [searchParams] = useSearchParams();
   let {searchQuery} = useParams();
   let movieId = searchParams.get('movie');
-
-  useEffect(() => {
-    navigate('/search/?sortBy=vote_average&genre=all&sortOrder=desc')
-  }, [])
 
   useEffect(() => {
     fetchMoviesByParams(searchParams.get('genre'), searchParams.get('sortBy'), searchParams.get('sortOrder'), searchQuery)
