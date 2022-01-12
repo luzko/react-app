@@ -1,44 +1,49 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React, {useEffect} from "react";
 import style from './FilterGenre.module.css';
 import Genre from "../Genre";
 import {filterGenres} from '../../constant/constant';
-import {getMovies, setFilter} from '../../store/actions';
+import {navigateToSearch} from "../../helper/routeHelper";
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 
-const FilterGenre = ({filterGenre, setFilterGenre, fetchMovies}) => {
-  const filterChange = (value) => {
-    setFilterGenre(value);
-    fetchMovies();
-  };
+const FilterGenre = () => {
+  let navigate = useNavigate();
+  let [searchParams] = useSearchParams();
+  let {searchQuery} = useParams();
+  let filterGenre = searchParams.get('genre')
+
+  const changeGenre = (genre) => {
+    searchParams.set('genre', genre)
+    navigateToSearch(navigate, searchQuery, searchParams)
+  }
+
+  const removeGenre = () => {
+    searchParams.delete('genre');
+    navigateToSearch(navigate, searchQuery, searchParams)
+  }
+
+  useEffect(() => {
+    if (filterGenre === 'all' || !filterGenres.includes(filterGenre)) {
+      removeGenre()
+    }
+  }, [filterGenre])
 
   return (
       <div className={style.genreList}>
         <Genre
             title='ALL'
-            value=''
-            filterGenre={filterGenre}
-            filterChange={filterChange}
+            isActive={filterGenre == null}
+            filterChange={() => changeGenre('all')}
         />
         {filterGenres.map(genre =>
             <Genre
-                key={genre.id}
-                title={genre.title}
-                value={genre.title}
-                filterGenre={filterGenre}
-                filterChange={filterChange}
+                key={genre}
+                title={genre}
+                isActive={filterGenre === genre}
+                filterChange={() => changeGenre(genre)}
             />
         )}
       </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  filterGenre: state.filterSort.filter
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setFilterGenre: (filter) => dispatch(setFilter(filter)),
-  fetchMovies: () => dispatch(getMovies())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilterGenre);
+export default FilterGenre;

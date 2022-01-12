@@ -3,11 +3,14 @@ import actionType from './actionType';
 const initial = {
   processing: false,
   error: null,
+  movie: null,
   movies: [],
   filterSort: {
-    sortBy: 'release_date',
+    sortBy: 'vote_average',
     sortOrder: 'desc',
-    filter: ''
+    filter: '',
+    search: '',
+    searchBy: 'title'
   }
 };
 
@@ -31,35 +34,12 @@ const reducer = (state = initial, action) => {
         error: null,
         movies: action.payload.movies
       }
-    case actionType.SET_SORT:
+    case actionType.SET_SELECTED_MOVIE:
       return {
         ...state,
-        processing: true,
+        processing: false,
         error: null,
-        filterSort: {
-          ...state.filterSort,
-          sortBy: action.payload.sortBy
-        }
-      };
-    case actionType.SET_SORT_ORDER:
-      return {
-        ...state,
-        processing: true,
-        error: null,
-        filterSort: {
-          ...state.filterSort,
-          sortOrder: action.payload.sortOrder
-        }
-      }
-    case actionType.SET_FILTER:
-      return {
-        ...state,
-        processing: true,
-        error: null,
-        filterSort: {
-          ...state.filterSort,
-          filter: action.payload.filter
-        }
+        movie: action.payload
       }
     case actionType.ADD_MOVIE:
       return {

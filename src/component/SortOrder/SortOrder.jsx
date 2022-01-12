@@ -1,29 +1,35 @@
-import React from "react";
-import {connect} from 'react-redux';
+import React, {useEffect} from "react";
 import style from "./SortOrder.module.css";
-import {getMovies, setSortOrder} from '../../store/actions';
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {navigateToSearch} from "../../helper/routeHelper";
 
-const SortOrder = ({sortOrderMovie, setSortOrderMovie, fetchMovies}) => {
-  const onSelectionChange = (value) => {
-    setSortOrderMovie(value === 'asc' ? 'desc' : 'asc');
-    fetchMovies();
+const SortOrder = () => {
+  let navigate = useNavigate();
+  let [searchParams] = useSearchParams();
+  let {searchQuery} = useParams();
+  let sortOrder = searchParams.get('sortOrder')
+
+  const changeSortOrder = (sortOrder) => {
+    searchParams.set('sortOrder', sortOrder);
+    navigateToSearch(navigate, searchQuery, searchParams)
+  }
+
+  useEffect(() => {
+    if (!['asc', 'desc'].includes(sortOrder)) {
+      changeSortOrder('desc')
+    }
+  }, [sortOrder])
+
+  const onSelectionChange = (sortOrder) => {
+    changeSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
   };
 
   return (
       <div className={style.order}
-           onClick={() => onSelectionChange(sortOrderMovie)}>
-        {sortOrderMovie === 'asc' ? "▲" : "▼"}
+           onClick={() => onSelectionChange(sortOrder)}>
+        {sortOrder === 'asc' ? "▲" : "▼"}
       </div>
   );
 }
 
-const mapStateToProps = (state) => ({
-  sortOrderMovie: state.filterSort.sortOrder
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setSortOrderMovie: (sortOrderMovie) => dispatch(setSortOrder(sortOrderMovie)),
-  fetchMovies: () => dispatch(getMovies())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SortOrder);
+export default SortOrder;

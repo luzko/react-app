@@ -1,5 +1,11 @@
 import actionType from './actionType';
-import {deleteApi, getApi, postApi, updateApi} from '../service/apiService';
+import {
+  deleteApi,
+  getApi,
+  getMovieById,
+  postApi,
+  updateApi
+} from '../service/apiService';
 
 export const createMovie = movie =>
     dispatch =>
@@ -31,8 +37,25 @@ export const updateMovie = movie =>
           dispatch(errorProcessing(error));
         })
 
-export const getMovies = () => (dispatch, getState) => {
-  const {filterSort} = getState()
+export const findMovieById = id =>
+    dispatch => {
+      getMovieById(id)
+      .then(movie => {
+        dispatch(setSelectedMovie(movie))
+      })
+      .catch(error => {
+        dispatch(errorProcessing(error));
+      })
+    }
+
+export const getMoviesByParam = (genre, sortBy, sortOrder, searchQuery) => (dispatch) => {
+  let filterSort = {
+    sortBy: sortBy,
+    sortOrder: sortOrder,
+    filter: genre === 'all' ? '' : genre,
+    search: searchQuery,
+    searchBy: 'title'
+  }
   getApi(filterSort)
   .then(movies => {
     dispatch(setMovies(movies));
@@ -53,26 +76,10 @@ export const errorProcessing = error => ({
   }
 });
 
-export const setSort = sortBy => ({
-  type: actionType.SET_SORT,
-  payload: {
-    sortBy
-  }
-});
-
-export const setSortOrder = sortOrder => ({
-  type: actionType.SET_SORT_ORDER,
-  payload: {
-    sortOrder
-  }
-});
-
-export const setFilter = filter => ({
-  type: actionType.SET_FILTER,
-  payload: {
-    filter
-  }
-});
+export const setSelectedMovie = movie => ({
+  type: actionType.SET_SELECTED_MOVIE,
+  payload: movie
+})
 
 export const addMovieAction = movie => ({
   type: actionType.ADD_MOVIE,

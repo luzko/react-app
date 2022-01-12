@@ -8,12 +8,14 @@ module.exports = {
   entry: './src/index.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: '[name].js',
+    publicPath: '/',
   },
   devtool: 'inline-source-map',
   devServer: {
     port: 5000,
-    compress: true
+    compress: true,
+    historyApiFallback: true,
   },
   resolve: {
     extensions: ['.js', '.jsx']

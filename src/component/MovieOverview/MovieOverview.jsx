@@ -2,15 +2,26 @@ import React from 'react';
 import style from './MovieOverview.module.css';
 import PropTypes from 'prop-types';
 import logo from '../../../public/logo.svg';
+import {navigateToSearch} from "../../helper/routeHelper";
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 
 const MovieOverview = (props) => {
+  let navigate = useNavigate();
+  let [searchParams] = useSearchParams();
+  let {searchQuery} = useParams();
+
+  const hide = () => {
+    searchParams.delete('movie')
+    navigateToSearch(navigate, searchQuery, searchParams)
+  }
+
   return (
       <>
         <div className={style.overview}>
           <div className={style.logoAndButton}>
             <img src={logo} alt='logo' className={style.logo}/>
             <i className={style.icon}
-               onClick={() => props.setMovieOverview(null)}>
+               onClick={hide}>
               ✕
             </i>
           </div>

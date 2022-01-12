@@ -1,9 +1,9 @@
 const filterGenres = [
-  {id: 1, title: 'Documentary'},
-  {id: 2, title: 'Comedy'},
-  {id: 3, title: 'Horror'},
-  {id: 4, title: 'Crime'}
-];
+  'Documentary',
+  'Comedy',
+  'Horror',
+  'Crime'
+]
 
 const genres = [
   {id: 1, title: 'Fantasy'},
@@ -25,4 +25,11 @@ const options = [
   {id: 4, label: 'RUNTIME', value: 'runtime'}
 ];
 
-export {filterGenres, genres, options};
+const optionsValue = [
+  'release_date',
+  'title',
+  'vote_average',
+  'runtime'
+]
+
+export {filterGenres, genres, options, optionsValue};

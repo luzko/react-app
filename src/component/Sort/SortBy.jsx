@@ -1,23 +1,34 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React, {useEffect} from 'react';
 import style from './SortBy.module.css';
 import SortOrder from '../SortOrder';
-import {options} from '../../constant/constant';
-import {getMovies, setSort} from '../../store/actions';
+import {options, optionsValue} from '../../constant/constant';
+import {navigateToSearch} from "../../helper/routeHelper";
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 
-const SortBy = ({sortMovie, setSortMovie, fetchMovies}) => {
-  const selectionChange = (value) => {
-    setSortMovie(value);
-    fetchMovies();
-  };
+const SortBy = () => {
+  let navigate = useNavigate();
+  let [searchParams] = useSearchParams();
+  let {searchQuery} = useParams();
+  let sortBy = searchParams.get('sortBy')
+
+  const changeSortBy = (sortBy) => {
+    searchParams.set('sortBy', sortBy)
+    navigateToSearch(navigate, searchQuery, searchParams)
+  }
+
+  useEffect(() => {
+    if (!optionsValue.includes(sortBy)) {
+      changeSortBy('vote_average')
+    }
+  }, [sortBy])
 
   return (
       <div>
         <span className={style.label}>SORT BY:</span>
         <select
-            defaultValue={sortMovie}
+            defaultValue={sortBy}
             className={style.dropdown}
-            onChange={(e) => selectionChange(e.target.value)}
+            onChange={(e) => changeSortBy(e.target.value)}
         >
           {options.map((option) => (
               <option key={option.id} value={option.value}>
@@ -30,13 +41,4 @@ const SortBy = ({sortMovie, setSortMovie, fetchMovies}) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  sortMovie: state.filterSort.sortBy
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setSortMovie: (sortMovie) => dispatch(setSort(sortMovie)),
-  fetchMovies: () => dispatch(getMovies())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SortBy);
+export default SortBy;

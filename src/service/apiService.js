@@ -2,6 +2,11 @@ import axios from 'axios';
 
 const baseUrl = 'http://localhost:4000/movies/';
 
+export const getMovieById = (id) => {
+  return axios.get(baseUrl + id)
+  .then(response => response.data)
+}
+
 export const getApi = (filterSort) => {
   return axios.get(baseUrl, {
     params: {...filterSort}

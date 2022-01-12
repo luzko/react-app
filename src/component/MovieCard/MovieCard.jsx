@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import style from './MovieCard.module.css';
 import PropTypes from "prop-types";
 import MovieModal from '../MovieModal';
 import DeleteMovie from '../DeleteMovie';
 import MovieOptions from '../MovieOptions';
+import {navigateToSearch} from "../../helper/routeHelper";
 
 const MovieCard = (props) => {
   const [showEditModal, setShowEditModal] = useState(false);
@@ -16,6 +18,15 @@ const MovieCard = (props) => {
   const closeOption = () => setShowOption(false)
   const openOption = () => setShowOption(true)
 
+  const navigate = useNavigate();
+  let [searchParams] = useSearchParams();
+  const {searchQuery} = useParams();
+
+  const changeMovieOverview = (movieId) => {
+    searchParams.set('movie', movieId)
+    navigateToSearch(navigate, searchQuery, searchParams)
+  }
+
   return (
       <>
         <div className={style.card}>
@@ -24,7 +35,7 @@ const MovieCard = (props) => {
                 className={style.image}
                 src={props.movie.poster_path}
                 alt={props.movie.title}
-                onClick={() => props.setMovieOverview(props.movie)}
+                onClick={() => changeMovieOverview(props.movie.id)}
             />
             <button
                 className={style.button}
