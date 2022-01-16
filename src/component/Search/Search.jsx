@@ -14,7 +14,7 @@ const Search = ({searchValue, setSearchValue, handleSearch, keyEnter}) => {
               onChange={(e) => setSearchValue(e.target.value)}
               onKeyPress={keyEnter}
           />
-          <button className={style.searchButton} onClick={handleSearch}>
+          <button className={style.searchButton} onClick={handleSearch} title={'search'}>
             SEARCH
           </button>
         </div>

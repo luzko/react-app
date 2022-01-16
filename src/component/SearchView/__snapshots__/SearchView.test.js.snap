@@ -358,6 +358,7 @@ Array [
       <button
         className="searchButton"
         onClick={[Function]}
+        title="search"
       >
         SEARCH
       </button>
