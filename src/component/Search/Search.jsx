@@ -7,8 +7,9 @@ const Search = ({searchValue, setSearchValue, handleSearch, keyEnter}) => {
         <div className={style.headerText}>FIND YOUR MOVIE</div>
         <div className={style.search}>
           <input
-              type="text"
-              placeholder="What do you want to watch?"
+              id={'search'}
+              type='text'
+              placeholder='What do you want to watch?'
               className={style.searchInput}
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
