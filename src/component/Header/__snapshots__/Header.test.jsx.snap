@@ -305,6 +305,7 @@ exports[`header search test 1`] = `
     >
       <input
         class="searchInput"
+        id="search"
         placeholder="What do you want to watch?"
         type="text"
         value=""
