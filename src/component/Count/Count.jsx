@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import style from './Count.module.css';
 
 const Count = ({count}) => {
