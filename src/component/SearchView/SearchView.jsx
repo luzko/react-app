@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import Header from "../Header";
 import MovieOverview from "../MovieOverview";
 import Main from "../Main";
-import {useParams, useSearchParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {connect} from "react-redux";
 import {
   createMovie,
@@ -27,7 +27,8 @@ const SearchView = ({
   updateMovie,
   setSearch
 }) => {
-  let [searchParams] = useSearchParams();
+  let {search} = useLocation();
+  let searchParams = new URLSearchParams(search);
   let {searchQuery} = useParams();
   let movieId = searchParams.get('movie');
 

@@ -7,7 +7,7 @@ jest.mock('../../helper/routeHelper')
 
 jest.mock("react-router-dom", () => {
   return {
-    useNavigate: jest.fn(),
+    useHistory: jest.fn(),
     useSearchParams: jest.fn(() => [{}]),
     useParams: jest.fn(() => ({
       searchQuery: ""

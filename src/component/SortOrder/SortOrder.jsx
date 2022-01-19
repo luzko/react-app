@@ -1,17 +1,18 @@
 import React, {useEffect} from "react";
 import style from "./SortOrder.module.css";
-import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {useHistory, useLocation, useParams} from "react-router-dom";
 import {navigateToSearch} from "../../helper/routeHelper";
 
 const SortOrder = () => {
-  let navigate = useNavigate();
-  let [searchParams] = useSearchParams();
+  let history = useHistory();
+  let {search} = useLocation();
+  let searchParams = new URLSearchParams(search);
   let {searchQuery} = useParams();
   let sortOrder = searchParams.get('sortOrder')
 
   const changeSortOrder = (sortOrder) => {
     searchParams.set('sortOrder', sortOrder);
-    navigateToSearch(navigate, searchQuery, searchParams)
+    navigateToSearch(history, searchQuery, searchParams);
   }
 
   useEffect(() => {

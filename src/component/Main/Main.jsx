@@ -20,7 +20,7 @@ const Main = (props) => {
                 : <>
                   <Count count={props.movies.length}/>
                   <MovieList
-                      movies={props.movies}
+                      movies={props.movies.data}
                       deleteMovie={props.deleteMovie}
                       updateMovie={props.updateMovie}
                   />

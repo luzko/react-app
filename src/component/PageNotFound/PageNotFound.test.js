@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import PageNotFound from './PageNotFound';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 test('snapshot test for page not found', () => {
   const component = renderer.create(

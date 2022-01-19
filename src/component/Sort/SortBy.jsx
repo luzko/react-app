@@ -3,17 +3,18 @@ import style from './SortBy.module.css';
 import SortOrder from '../SortOrder';
 import {options, optionsValue} from '../../constant/constant';
 import {navigateToSearch} from "../../helper/routeHelper";
-import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {useHistory, useLocation, useParams} from "react-router-dom";
 
 const SortBy = () => {
-  let navigate = useNavigate();
-  let [searchParams] = useSearchParams();
+  let history = useHistory();
+  let {search} = useLocation();
+  let searchParams = new URLSearchParams(search);
   let {searchQuery} = useParams();
   let sortBy = searchParams.get('sortBy')
 
   const changeSortBy = (sortBy) => {
     searchParams.set('sortBy', sortBy)
-    navigateToSearch(navigate, searchQuery, searchParams)
+    navigateToSearch(history, searchQuery, searchParams);
   }
 
   useEffect(() => {

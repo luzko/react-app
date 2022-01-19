@@ -5,7 +5,7 @@ import SelectGenre from '../SelectGenre';
 import {useFormik} from 'formik';
 
 const MovieModal = (props) => {
-  const isEdit = props.movie ? true : false
+  const isEdit = !!props.movie
 
   const validate = (values) => {
     const errors = {};
@@ -213,7 +213,6 @@ const MovieModal = (props) => {
           <div className={style.field}>
             <label>OVERVIEW</label>
             <textarea
-                type='text'
                 className={addRedBorder('overview').join(' ')}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}

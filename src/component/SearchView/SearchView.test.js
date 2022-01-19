@@ -5,7 +5,7 @@ import SearchView from './SearchView';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 
-import {MemoryRouter} from 'react-router';
+import {MemoryRouter} from 'react-router-dom';
 
 const mockStore = configureStore();
 
@@ -13,7 +13,7 @@ const initialState = {
   processing: false,
   error: null,
   movie: null,
-  movies: [
+  movies: data = [
     {
       'id': 1,
       'title': 'mock movie 1',
