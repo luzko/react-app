@@ -1,11 +1,31 @@
 import actionType from './actionType';
 import {
+  filter,
   deleteApi,
   getApi,
   getMovieById,
   postApi,
   updateApi
 } from '../service/apiService';
+import {all, call, put} from "redux-saga/effects";
+
+export function* rootSaga() {
+  yield all([
+    moviesSaga(),
+  ]);
+}
+
+function* moviesSaga() {
+  yield all([
+    fetchMovies()
+  ]);
+}
+
+function* fetchMovies() {
+  const response = yield call(fetch, filter);
+  const movies = yield response.json();
+  yield put(setMovies(movies));
+}
 
 export const createMovie = movie =>
     dispatch =>

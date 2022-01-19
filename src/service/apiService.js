@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const baseUrl = 'http://localhost:4000/movies/';
+export const filter = baseUrl + '?sortBy=vote_average&sortOrder=desc';
 
 export const getMovieById = (id) => {
   return axios.get(baseUrl + id)

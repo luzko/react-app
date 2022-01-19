@@ -3,22 +3,23 @@ import style from './FilterGenre.module.css';
 import Genre from "../Genre";
 import {filterGenres} from '../../constant/constant';
 import {navigateToSearch} from "../../helper/routeHelper";
-import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {useHistory, useLocation, useParams} from "react-router-dom";
 
 const FilterGenre = () => {
-  let navigate = useNavigate();
-  let [searchParams] = useSearchParams();
+  let history = useHistory();
+  let {search} = useLocation();
+  let searchParams = new URLSearchParams(search);
   let {searchQuery} = useParams();
   let filterGenre = searchParams.get('genre')
 
   const changeGenre = (genre) => {
     searchParams.set('genre', genre)
-    navigateToSearch(navigate, searchQuery, searchParams)
+    navigateToSearch(history, searchQuery, searchParams);
   }
 
   const removeGenre = () => {
     searchParams.delete('genre');
-    navigateToSearch(navigate, searchQuery, searchParams)
+    navigateToSearch(history, searchQuery, searchParams);
   }
 
   useEffect(() => {

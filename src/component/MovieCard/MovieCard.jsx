@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {useHistory, useLocation, useParams} from "react-router-dom";
 import style from './MovieCard.module.css';
 import PropTypes from "prop-types";
 import MovieModal from '../MovieModal';
@@ -18,13 +18,14 @@ const MovieCard = (props) => {
   const closeOption = () => setShowOption(false)
   const openOption = () => setShowOption(true)
 
-  const navigate = useNavigate();
-  let [searchParams] = useSearchParams();
-  const {searchQuery} = useParams();
+  let history = useHistory();
+  let {search} = useLocation();
+  let searchParams = new URLSearchParams(search);
+  let {searchQuery} = useParams();
 
   const changeMovieOverview = (movieId) => {
     searchParams.set('movie', movieId)
-    navigateToSearch(navigate, searchQuery, searchParams)
+    navigateToSearch(history, searchQuery, searchParams);
   }
 
   return (

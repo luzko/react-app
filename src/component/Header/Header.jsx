@@ -2,18 +2,19 @@ import React, {useState} from 'react';
 import style from './Header.module.css';
 import Search from "../Search";
 import AddMovie from "../AddMovie";
-import logo from '../../../public/logo.svg';
+import logo from '../../../img/logo.svg';
 import {navigateToSearch} from "../../helper/routeHelper";
-import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {useHistory, useLocation, useParams} from "react-router-dom";
 
 const Header = (props) => {
-  let navigate = useNavigate();
-  let [searchParams] = useSearchParams();
+  let history = useHistory();
+  let {searchParam} = useLocation();
+  let searchParams = new URLSearchParams(searchParam);
   let {searchQuery} = useParams();
   let [search, setSearch] = useState(searchQuery ? searchQuery : "")
 
   let handleSearch = () => {
-    navigateToSearch(navigate, search, searchParams)
+    navigateToSearch(history, search, searchParams)
   };
 
   const keyEnter = (e) => {

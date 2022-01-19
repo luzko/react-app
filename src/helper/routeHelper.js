@@ -1,2 +1,2 @@
-export const navigateToSearch = (navigate, searchQuery, searchParams) =>
-    navigate(`/search${searchQuery ? '/' + searchQuery : '/'}?${searchParams.toString()}`)
+export const navigateToSearch = (history, searchQuery, searchParams) =>
+    history.push(`/search${searchQuery ? '/' + searchQuery : '/'}?${searchParams.toString()}`)

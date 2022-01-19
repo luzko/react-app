@@ -1,18 +1,19 @@
 import React from 'react';
 import style from './MovieOverview.module.css';
 import PropTypes from 'prop-types';
-import logo from '../../../public/logo.svg';
+import logo from '../../../img/logo.svg';
 import {navigateToSearch} from "../../helper/routeHelper";
-import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {useHistory, useLocation, useParams} from "react-router-dom";
 
 const MovieOverview = (props) => {
-  let navigate = useNavigate();
-  let [searchParams] = useSearchParams();
+  let history = useHistory();
+  let {search} = useLocation();
+  let searchParams = new URLSearchParams(search);
   let {searchQuery} = useParams();
 
   const hide = () => {
     searchParams.delete('movie')
-    navigateToSearch(navigate, searchQuery, searchParams)
+    navigateToSearch(history, searchQuery, searchParams);
   }
 
   return (

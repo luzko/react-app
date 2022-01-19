@@ -1,21 +1,33 @@
+import 'isomorphic-fetch';
+import 'babel-polyfill';
 import React from "react";
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {Redirect, Route, Switch} from "react-router-dom";
 import ErrorBoundary from "../ErrorBoundary";
 import Footer from "../Footer";
 import SearchView from '../SearchView';
 import PageNotFound from '../PageNotFound';
+import {hot} from "react-hot-loader";
+import {Provider} from "react-redux";
 
-const App = () => {
+const App = ({store}) => {
   return (
       <ErrorBoundary>
-        <Routes>
-          <Route path="/" element={<Navigate to='/search/?sortBy=vote_average&sortOrder=desc'/>}/>
-          {['/search/', '/search/:searchQuery/'].map(path => <Route path={path} element={<SearchView/>}/>)}
-          <Route path='*' element={<PageNotFound/>}/>
-        </Routes>
-        <Footer/>
+        <Provider store={store}>
+          <Switch>
+            {["/search", "/search/:searchQuery"].map(path => <Route path={path}>
+              <SearchView/>
+            </Route>)}
+            <Route path="/">
+              <Redirect to="search"/>
+            </Route>
+            <Route path="*">
+              <PageNotFound/>
+            </Route>
+          </Switch>
+          <Footer/>
+        </Provider>
       </ErrorBoundary>
   );
 }
 
-export default App;
+export default hot(module)(App);
